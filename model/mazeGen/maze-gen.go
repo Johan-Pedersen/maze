@@ -3,6 +3,7 @@ package mazeGen
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 
 	"gonum.org/v1/gonum/mat"
 )
@@ -81,7 +82,7 @@ func createPath(mz Maze) Maze{
   r,c := mz.MazeTrack.Dims()
   fmt.Println("dims", r,c)
   // Tager 10 skridt 
-  for i:=0; i<10; i++{
+  for i:=0; i<20; i++{
 
     println("******************",i)
 
@@ -90,7 +91,7 @@ func createPath(mz Maze) Maze{
     //Denne kunne man godt lave til en pointer. Så man kunne skrive direkte til memory location
     head := mz.Paths[0]
 
-    println(dir)
+    println("dir: ", dir)
     fmt.Println("initial head", head)
 
 
@@ -109,13 +110,21 @@ func createPath(mz Maze) Maze{
 
     switch dir{
     case Left:
-        head.X = head.X -1
+        if(mzTrack.At(head.Y, head.X-1) != 0){
+          head.X = head.X -1
+        }
     case Right:
+        if(mzTrack.At(head.Y, head.X+1) != 0){
         head.X = head.X +1
+      }
     case Up:
+        if(mzTrack.At(head.Y+1, head.X) != 0){
         head.Y = head.Y +1
+      }
     case Down:
+        if(mzTrack.At(head.Y-1, head.Y) != 0){
         head.Y = head.Y -1
+      }
     }
 
     mz.MazeTrack.Set(head.Y, head.X, 0)
@@ -124,9 +133,24 @@ func createPath(mz Maze) Maze{
 
     mz.Paths[0] = head
 
+    PrintMaze(mz)
+
   }
 
-  fmt.Println(mz.MazeTrack)
 
   return mz 
+}
+
+func PrintMaze(mz Maze) {
+
+  rows, cols := mz.MazeTrack.Dims()
+  fmt.Print("  ", strings.Repeat( "_ ", cols), "\n")
+  for i:= rows-1; i>=0; i--{
+    fmt.Print("| ")
+    for j := 0; j<cols ; j++{
+      fmt.Print(mz.MazeTrack.At(i,j), " ")
+    }
+    fmt.Print("|\n")
+  }
+  fmt.Print("  ", strings.Repeat( "- ", cols), "\n")
 }

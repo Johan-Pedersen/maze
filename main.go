@@ -19,7 +19,5 @@ func main() {
     
 //    mazeGen.CreatePath(mazeGen.GenerateMaze(2,3))
 
-mazeGen.GenerateMaze(2,3)
-    
-
+mazeGen.PrintMaze(mazeGen.GenerateMaze(10,13))
 }

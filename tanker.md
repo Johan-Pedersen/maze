@@ -239,7 +239,18 @@
     - Hvad får man af den
     - Matrix interfacet har metoderne dims og T 
 
-- 
+- Hvordan vil vi autogenerer target zone
+  - Vi vil ikke have det i starten af matricen
+  - Men man vil heller ikke altid have det i midten. Så man kan måske sige at target zone, skal vœre lœngere vœk end 50% af banelœngden, vœk fra entry 
+  - Så er spørgsmålet bare er det for kort/ kommer den for tœt på. Men det kan man jo bare justere på
+  - Spørgsmålet er så mere om der er en bedre måde at gøre det på
+    - Hvad skulle problemet vœre i denne løsning
+  - 
+
+### Fremtidige ideer
+
+- Lav bane patterns, så man sœtter nogen punkter som justerings vektorene peger på, for på den måde at man også kan lave nogen lidt interessante patterns
+- Man kan måske lave nogen små grupper af paths i hjørnerne osv. Så pathen måske ikke er så tydelige
 
 ### Teoretiske spørgsmål
 
