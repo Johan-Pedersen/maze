@@ -52,13 +52,24 @@ func GenerateMaze(r,c int) Maze {
   for i := 0; i<r*c; i++ {
     data[i] = 1
   }
+
+  //Set target location
+  targetYLowerBound := 0.25 * float64(r)
+  targetXLowerBound := 0.25 * float64(c)
+
+  targetY := rand.Intn(r-1) + int(targetYLowerBound)
+  targetX := rand.Intn(c-1) + int(targetXLowerBound)
+
+  data[(targetY-1)*c + targetX] = 2
+  data[(targetY)*c + targetX] = 2
+  data[(targetY-1)*c + targetX+1] = 2
+  data[(targetY)*c + targetX+1] = 2
+
   mz := Maze{ 
 		MazeTrack:   mat.NewDense(r, c, data),
-		Target: TargetCoordinate{},
+		Target: TargetCoordinate{targetX, targetY},
 		Paths:  []PathCoordinate{},
 	}
-
-
 
   return createPath(mz)
 }
@@ -131,6 +142,7 @@ func createPath(mz Maze) Maze{
 
     fmt.Println("head", head)
 
+
     mz.Paths[0] = head
 
     PrintMaze(mz)
@@ -154,3 +166,4 @@ func PrintMaze(mz Maze) {
   }
   fmt.Print("  ", strings.Repeat( "- ", cols), "\n")
 }
+
