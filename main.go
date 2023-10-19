@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"maze/model/mazeGen"
 )
 
@@ -9,15 +10,14 @@ import (
 
 func main() {
 	fmt.Println("Suck big cock")
-  
-//  fmt.Println(yes3)
-  //Den her lorte luder ting, bliver vist uanset, ligemeget om unused variable analyses er på eller ej
-//	fmt.Println(no)
-//	noyesno := noyesno
-		//foo(buf)
 
-    
-//    mazeGen.CreatePath(mazeGen.GenerateMaze(2,3))
+	//  fmt.Println(yes3)
+	// Den her lorte luder ting, bliver vist uanset, ligemeget om unused variable analyses er på eller ej
+	//	fmt.Println(no)
+	//	noyesno := noyesno
+	// foo(buf)
 
-mazeGen.PrintMaze(mazeGen.GenerateMaze(10,13))
+	//    mazeGen.CreatePath(mazeGen.GenerateMaze(2,3))
+
+	mazeGen.PrintMaze(mazeGen.GenerateMaze(10, 13))
 }

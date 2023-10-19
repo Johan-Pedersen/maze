@@ -13,7 +13,7 @@
   - Hvilken path er det man skal bruge når man bruger install commandoen
   - Hvad gør "go install"
   - Hvilken path bliver programmerne installet på
-    -
+
   - Hvilke packages skal jeg have
     - spørgsmålet er hvordan programmet skal opdels
     - Fordi det kan vel ikke hedde main det hele
@@ -145,7 +145,6 @@
       - Så er spørgsmålet, hvor stor skal labyrinten vœre før at man ligesom kan have den effekt.
       - Fordi det skal vœre sådan at man bare nudger mod target, men gør det ikke så voldsomt.
 - Hvordan ville man regne ud hvad ss for at ramme target zone efter x steps.
-  -
 
 - før man kan lave vector udregning, så skal vi lige vœre enig om representationen af matricen
   - Vi bliver jo nød til at lave basen først
@@ -245,12 +244,36 @@
   - Så er spørgsmålet bare er det for kort/ kommer den for tœt på. Men det kan man jo bare justere på
   - Spørgsmålet er så mere om der er en bedre måde at gøre det på
     - Hvad skulle problemet vœre i denne løsning
-  - 
+   
+  - Vi skal bare vide hvilken "kasse" target Zone er i
+    - Vi kan vel bare 0-indexere col
+
+    - 1Dlisten er 0-indexeret
+    - matricen er 0-indexeret
+    - Dims vi får er 1-indexeret
+    - Så når vi ligger col til så første gang vil vi jo ende på index col + 1  
+    - Så col * y giver os starten af den rigtige kasse
+    - + x giver os så det rigtige index
+    - col * y + x
+  
+
+- Targetzone
+  - hvad skal den gøre
+    - Fordi vi kan jo ikke bare nøjes med en target zone af 1x1, hvis der skal vœre en target zone, så skal den vœre størrer
+    - Men det kan man jo også sagtns gøre
+
+
+
+### Tests
+
+- Hvordan skal vi lave tests
+
 
 ### Fremtidige ideer
 
 - Lav bane patterns, så man sœtter nogen punkter som justerings vektorene peger på, for på den måde at man også kan lave nogen lidt interessante patterns
 - Man kan måske lave nogen små grupper af paths i hjørnerne osv. Så pathen måske ikke er så tydelige
+- Lav target zone 2x2
 
 ### Teoretiske spørgsmål
 
