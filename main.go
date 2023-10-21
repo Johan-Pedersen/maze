@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"maze/model/mazeGen"
+	"maze/model/maze"
 )
 
 // Burde vœre inline hints om at den er unused -> Det kommer op hvis jeg kører staticcheck ./... selv. Men vil gerne have det inline
@@ -19,5 +19,5 @@ func main() {
 
 	//    mazeGen.CreatePath(mazeGen.GenerateMaze(2,3))
 
-	mazeGen.PrintMaze(mazeGen.GenerateMaze(10, 13))
+	maze.PrintMaze(maze.NewMaze(10, 13))
 }

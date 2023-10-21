@@ -170,7 +170,9 @@
     - Vi vil jo vœgte det felt er peger mest i retning af target zone højest.
 
     - En vektor virker stadig ikke som en dårlig ide. Den skal bare lige udføres på den rigtige måde.
-      - Og vi vil ikke regne vektor vœgtningen for hele matricen, for hver path
+      - Og vi vil ikke regne det for hele matricen, for hver path
+      - Og
+      
   
 - Vektor justering
   - Fordi det giver en retning
@@ -260,41 +262,9 @@
     - Fordi vi kan jo ikke bare nøjes med en target zone af 1x1, hvis der skal vœre en target zone, så skal den vœre størrer
     - Men det kan man jo også sagtns gøre
 
-### path adjusting
 
-- Vektor justering
-  - Fordi det giver en retning
-  - Hvordan får vi en retninge fra head til target
-    - ((x1,y1),(x2,y2)) -> target vektor = ((x1-x2),(y1-y2)).
-      - Enheds vektoren = ((x1-x2),(y1-y2))/||((x1-x2),(y1-y2))|| = (z,q)
-    
-  - Hvordan vil vi så bruge (z,q) til justeringen
-    - Man kan jo så bruge vektor produkt, til at finde ud af hvilken en der peger mest i samme retning 
-      - Man kan måske lave vœgtningen baseret på vektor produktet.
-      - Så skal man dividere med max vektor produkt. For at få en procent. Man kan lœgge til.
-        - Men det kan man 
-
-- For at finde retningen mod target zone, så kunne man sige at hver celle har en bestemt vœgt, hvor 1 er default
-- Og jo tœttere du kommer på target zone, desto større vokser vœrdierne
-- Så man kan gange hver retning ganger man cellens vœgtning på
-
-- ripples
-  - Hver celle skal have en vœrdi der er korreleret til denne celles afstand fra target zone.
-  - Celle vœrdien skal bare afhœnge af hvor langt cellen er fra target zone
-  - Det er jo bare en matrice, så man vil jo kunne lave en form for matrix multiplikation ligesom man gør i ml
-  - Er det nødvendigt, vi har jo en vektor mellem dem, så vi kan jo nemt bare udregne distancen 
-  
-  - Hvordan skal vi så omforme det til noget man kan bruge til at justere hvilken dir der bliver valgt.
-    - Det skal jo vœre noget der kan omdannes til procent.
-    - Vi kan finde 2-normen af vektorne fra hver celle til TZ (target zone). Og så ud af de mulige directions finder man summen normerne
-    - På den måde kan man sœtte vektorne i forhold til hinanden og samligne dem i forhold til hvilke nogen der er størst.
-
-
-- Hvad er funktionen til et one-step increase i forhold til normen
-  - Det er bare en simpel funktion hvor du fastholder enten x1 el. x2
-    $$f(x) = sqrt(x^2 + x2^2)$$
-  - Kan man så lave en vectorize funktion baseret på denne funktion
-    - 
+- Brug pointer til maze.
+  - 
 
 ### Tests
 
@@ -305,15 +275,8 @@
 
 - Lav bane patterns, så man sœtter nogen punkter som justerings vektorene peger på, for på den måde at man også kan lave nogen lidt interessante patterns
 - Man kan måske lave nogen små grupper af paths i hjørnerne osv. Så pathen måske ikke er så tydelige
-- Man kan også lave patterns med blokke der ikke kan laves path igennem.
+- autogenere 2x2 target zone
 - Target zone skal ikke kunne laves i den 1/4 af banen hvor start lokation er.
-- Paths, skal vœre en array af pointers, så man kan opdatere memroy location direkte
-  - Hvad ville fordelen vœre ved dette
-    - Fordelen er hvis man har flere steder der refere til den samme memory location, Så kan alle vide hvor alle er
-      - Det er smart at mzTrack er en pointer fordi den vel du ikke kopiere rundt alle steder
-      - Men man vil alligevel altid kun have 1 Maze objekt, så man behøver ikke rigtig have denne form for sync mellem steder.
-      - At bruge pointers vil generelt give lidt flere mulig og så lœrer man også noget nyt så lad os gøre det
-
 
 ### Teoretiske spørgsmål
 

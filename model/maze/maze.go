@@ -1,9 +1,8 @@
-package mazeGen
+package maze
 
 import (
 	"fmt"
 	"math/rand"
-	"strings"
 
 	"gonum.org/v1/gonum/mat"
 )
@@ -18,11 +17,13 @@ type PathCoordinate struct {
 }
 
 type Maze struct {
-	MazeTrack *mat.Dense `json:"maze_track,omitempty"`
+	Maze *mat.Dense `json:"maze_track,omitempty"`
 
 	Target TargetCoordinate `json:"target,omitempty"`
 
 	Paths []PathCoordinate `json:"paths,omitempty"`
+
+	YBound, XBound int
 }
 
 type TargetVektor struct {
@@ -47,38 +48,51 @@ func (path PathCoordinate) String() string {
 	return fmt.Sprintf("X: %d, Y: %d", path.X, path.Y)
 }
 
-func GenerateMaze(r, c int) Maze {
+func NewMaze(r, c int) Maze {
 	data := make([]float64, r*c)
 	for i := 0; i < r*c; i++ {
 		data[i] = 1
 	}
 
-	// Set target location
-	targetYLowerBound := 0.25 * float64(r)
-	targetXLowerBound := 0.25 * float64(c)
+	// Generate 2x2 target zone
+	targetX, targetY := TargetZone(r, c)
 
-	targetY := rand.Intn(r-1) + int(targetYLowerBound)
-	targetX := rand.Intn(c-1) + int(targetXLowerBound)
+	data[CoordToDataPos(targetX, targetY, c)] = 2
+	data[CoordToDataPos(targetX+1, targetY, c)] = 2
+	data[CoordToDataPos(targetX, targetY+1, c)] = 2
+	data[CoordToDataPos(targetX+1, targetY+1, c)] = 2
 
-	data[(targetY-1)*c+targetX] = 2
-	data[(targetY)*c+targetX] = 2
-	data[(targetY-1)*c+targetX+1] = 2
-	data[(targetY)*c+targetX+1] = 2
-
-	mz := Maze{
-		MazeTrack: mat.NewDense(r, c, data),
-		Target:    TargetCoordinate{targetX, targetY},
-		Paths:     []PathCoordinate{},
+	mz := &Maze{
+		Maze:   mat.NewDense(r, c, data),
+		Target: TargetCoordinate{targetX, targetY},
+		Paths:  []PathCoordinate{},
+		YBound: r,
+		XBound: c,
 	}
 
-	return createPath(mz)
+	ripple(mz.Maze, mz.Target)
+
+	createPath(mz)
+
+	return *mz
 }
 
-func createPath(mz Maze) Maze {
+func ripple(maze *mat.Dense, target TargetCoordinate) {
+
+}
+
+func validateDir(dir StepDirection, head PathCoordinate, xAxisBound, yAxisBound int) bool {
+	return (dir == Left && head.X == 0) ||
+		(dir == Right && head.X == xAxisBound-1) ||
+		(dir == Up && head.Y == yAxisBound-1) ||
+		(dir == Down && head.Y == 0)
+}
+
+func createPath(mz *Maze) {
 	// Init first position
 	mz.Paths = append(mz.Paths, PathCoordinate{0, 0})
 
-	mzTrack := *mz.MazeTrack
+	mzTrack := *mz.Maze
 	mzTrack.Set(0, 0, float64(0))
 
 	// direction := [4] StepDirection {Left, Right, Up, Down}
@@ -87,10 +101,7 @@ func createPath(mz Maze) Maze {
 	println("Right", Right)
 	println("Up:", Up)
 	println("Down:", Down)
-	yAxisBound, xAxisBound := mz.MazeTrack.Dims()
-	println("yaxis bound:", yAxisBound, "xaxixbound", xAxisBound)
-	r, c := mz.MazeTrack.Dims()
-	fmt.Println("dims", r, c)
+	fmt.Println("dims", mz.XBound, mz.YBound)
 	// Tager 10 skridt
 	for i := 0; i < 20; i++ {
 
@@ -101,21 +112,9 @@ func createPath(mz Maze) Maze {
 		// Denne kunne man godt lave til en pointer. Så man kunne skrive direkte til memory location
 		head := mz.Paths[0]
 
-		head.X = 0
-
 		println("dir: ", dir)
-		fmt.Println("initial head", head)
 
-		if dir == Left && head.X == 0 {
-			continue
-		}
-		if dir == Right && head.X == xAxisBound-1 {
-			continue
-		}
-		if dir == Up && head.Y == yAxisBound-1 {
-			continue
-		}
-		if dir == Down && head.Y == 0 {
+		if validateDir(dir, head, mz.XBound, mz.YBound) {
 			continue
 		}
 
@@ -138,28 +137,13 @@ func createPath(mz Maze) Maze {
 			}
 		}
 
-		mz.MazeTrack.Set(head.Y, head.X, 0)
+		mz.Maze.Set(head.Y, head.X, 0)
 
 		fmt.Println("head", head)
 
 		mz.Paths[0] = head
 
-		PrintMaze(mz)
+		PrintMaze(*mz)
 
 	}
-
-	return mz
-}
-
-func PrintMaze(mz Maze) {
-	rows, cols := mz.MazeTrack.Dims()
-	fmt.Print("  ", strings.Repeat("_ ", cols), "\n")
-	for i := rows - 1; i >= 0; i-- {
-		fmt.Print("| ")
-		for j := 0; j < cols; j++ {
-			fmt.Print(mz.MazeTrack.At(i, j), " ")
-		}
-		fmt.Print("|\n")
-	}
-	fmt.Print("  ", strings.Repeat("- ", cols), "\n")
 }
