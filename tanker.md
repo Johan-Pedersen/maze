@@ -99,7 +99,7 @@
   - 
 
 
-## tanker
+## tasks
 
 - Man kunne vel godt sige at man starter med walls alle steder og så "hukker" man en path ud af det.
   - På den måde er det nok lidt nemmere at definere paths. Fordi så er der kun de stier du har lavet resten er bare vœg.
@@ -294,7 +294,12 @@
   - Det er bare en simpel funktion hvor du fastholder enten x1 el. x2
     $$f(x) = sqrt(x^2 + x2^2)$$
   - Kan man så lave en vectorize funktion baseret på denne funktion
+    - Der er ingen vectorize funktion i gonum
     - 
+
+- Problemet med at hver celle er normen ind til target, så skal man lave en udregning når man kommer hen til cellen og det er lidt grimt.
+- Men det er måske ikke så slemt alligevel.
+
 
 ### Tests
 
@@ -331,6 +336,7 @@
     - En løsning er at lave target større, så der ikke kun er 2 veje ind. Men adskillige
     - Man kan vel prøve at regne på. hvad ss er for at man har ramt target efter x steps 
 - Der skal vœre en hard border rundt om som man ikke kan gå igennem
+
 
 
 

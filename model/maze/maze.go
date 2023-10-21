@@ -72,13 +72,23 @@ func NewMaze(r, c int) Maze {
 
 	ripple(mz.Maze, mz.Target)
 
+	println("Target: (", targetX, targetY,")")
+	println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+	PrintMaze(*mz)
+	println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+
 	createPath(mz)
 
 	return *mz
 }
 
 func ripple(maze *mat.Dense, target TargetCoordinate) {
-
+	yBound, xBound := maze.Dims()
+	for x := 0; x < xBound; x++ {
+		for y := 0; y < yBound; y++ {
+			maze.Set(y, x, Norm(target.X-x, target.Y-y))
+		}
+	}
 }
 
 func validateDir(dir StepDirection, head PathCoordinate, xAxisBound, yAxisBound int) bool {

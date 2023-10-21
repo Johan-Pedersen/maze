@@ -18,6 +18,7 @@ func main() {
 	// foo(buf)
 
 	//    mazeGen.CreatePath(mazeGen.GenerateMaze(2,3))
+	 maze.NewMaze(10, 13)
 
-	maze.PrintMaze(maze.NewMaze(10, 13))
+	// maze.PrintMaze(mz)
 }

@@ -2,6 +2,7 @@ package maze
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"strings"
 )
@@ -40,9 +41,13 @@ func PrintMaze(mz Maze) {
 	for i := rows - 1; i >= 0; i-- {
 		fmt.Print("| ")
 		for j := 0; j < cols; j++ {
-			fmt.Print(mz.Maze.At(i, j), " ")
+			fmt.Printf("%.2f ",mz.Maze.At(i, j))
 		}
 		fmt.Print("|\n")
 	}
 	fmt.Print("  ", strings.Repeat("- ", cols), "\n")
+}
+
+func Norm(x1, x2 int) float64 {
+	return math.Sqrt(math.Pow(float64(x1), 2) + math.Pow(float64(x2), 2))
 }
