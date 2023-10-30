@@ -1,0 +1,26 @@
+package main
+
+import (
+	"fmt"
+	"math/rand"
+)
+
+func main() {
+	fmt.Println("Hello from GoPlayground!")
+
+	// probs := make([]float32, {0.25, 0.75, 0.25})
+	probs := []float32{0.25, 0.75, 0.25}
+
+	summedProbs := make([]float32, len(probs))
+	
+	//Det her er vel noget pointer shit
+
+	//Når man arbejder med arrays, så er det vel pointers til arrayet i stedet for
+	summedProbs[0] = probs[0]
+	r := rand.Float32()
+
+	for i := 0; i< len(probs) : i++{
+		susummedProbs[i] = 
+	}
+
+}

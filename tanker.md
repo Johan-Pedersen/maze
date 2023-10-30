@@ -1,10 +1,13 @@
-# tanker
+# tanker (Maze)
 
 -  Hvad skal end result vœre
   - Der skal vœre en single path fra start til slut
   - Der skal så vœre en masse blind-gyder / dead ends
   - De skal vœre rimlige narrow, så der er ikke så meget ekstra spild plads.
   - Der skal vœre meget lille sandsynlighed for at der bliver lavet en lige linje fra start til finish linje.
+
+- Problemet er at selv om vi laver en dereference, så ligner det stadig at det er det samme objekt i memory der bliver rettet i. Og hvordan kan det vœre
+  - Det er fordi det var en slice, og når man laver := med en slice, så er det det samme underliggende array.
 
 ## tekniske go ting
 
@@ -260,7 +263,14 @@
     - Fordi vi kan jo ikke bare nøjes med en target zone af 1x1, hvis der skal vœre en target zone, så skal den vœre størrer
     - Men det kan man jo også sagtns gøre
 
-### path adjusting
+- Path creations
+  - Problemet med ripples er at procentvis er det stadig stort set en uniform fordeling.
+  - Dette leder til at man ikke rigtig får en retning på vores paths, så den bliver bare meget tyk 
+  - Så hvis vi laver ripples, så skal det belønnes meget mere at komme tœttere på target endnu.
+
+  - Tror vektor metoden er lidt bedre fordi det er nemmere at skrue på for at få den rigtige retning uden at skulle komme ud i nogen mega store tal og sådan noget shit.
+
+#### path adjusting
 
 - Vektor justering
   - Fordi det giver en retning
@@ -300,13 +310,68 @@
 - Problemet med at hver celle er normen ind til target, så skal man lave en udregning når man kommer hen til cellen og det er lidt grimt.
 - Men det er måske ikke så slemt alligevel.
 
+- Hvordan vœlger vi en dir baseret på en ss 
+  - Hver dir kunne have en tilknyttet ss
+  - Men så skal man finde ss hver gang man taget et step
+  - Men det gør vi jo alligevel
+  - 
+- Hvad kan man ellers gøre
+  - Man skal jo have en metode til at vœlge og så handler de der ss sådan set bare om hvor de ligger og det er som sådan ikke så vigtigt.
+
+- Vi har et array af ss, hvordan vœlger en entry baseret på vœrdien af en entry.
+  - Det handler jo om at vœlge en entry ud fra den distribution vi har fundet.
+  - Hvis man skulle lave sådan en metode selv, så er det eneste problem at man skal have en kilde/source til randomness. 
+  - Det man mangler er en form for picker der vœlger en entry ud fra den givne distribution.
+  - Det er en diskret fordeling
+  - Det virker til at vi kan bruge stats package (Ved ikke om jeg rent faktisk kan bruge den, den står som indirect i min mod fil) til at definere min egen fordeling.
+
+  - Man kan genere et random tal mellem 0 og 1 og så kan man se hvilken range den lander inden for
+
+  - Kan det vœre fordi at maze kun bliver opdateret lige før print maze bliver kaldt. 
+
+- Hvornår bliver der allokeret memory
+  - Når man laver en derefrence s∑ allokere man memory, somi så bare kopiere det pointeren peger på.
+  - 
+
+#### sampling
+
+- Genere et random tal mellem 0 og 1.
+- Den range vi lander inden for er den celle vi vœlger
+- Hvordan gør vi så det?
+  - Ligesom i playground
+
+- Hvad skal vi returnere 
+  - Hvad bruger vi
+  - 
+- Vi skal finde alle valid paths
+- find ss for hver step
+- Hvordan mapper vi en indgang til et step
+  - Så skulle vi sige at step nr'et bruges som index og så returnere vi bare "i"
+  - Vi skal bruge X,Y
+  - Men det kommer jo fra step direction, så ved det her head ser man om step direction. Og fordi vi allerede har valideret stepet så er det bare at gøre det.
+
+- Hvad skal vi have for at kunne lave en path
+  - Vi skal have en X,Y koordinat
+  - Den får vi fra vores head.X, Heady.Y, som er en path coordinate, hvilket er det vi operer ud fra.
+  - Så vi tager et step og returnere en PathCoordinate 
+  - Men vi bruger jo en pointer til mazen, så vi kan opdatere den direkte. Somehow syntes jeg nœsten mere om at returnere et index og så opdatere den hvor jeg kaldte den fra.
+  - Jeg har lagt op til at bruge pointers og det er bedre i forhold til at man ikke kopiere data hele tiden.
+
+- Det ville vel vœre smart hvis man havde en update funktion som både opdaterede head og satte 0 i maze'en.
+
+- Der er mange situationer hvor alle dirs har en prob (selv om der kun burde vœre max 3)
+probs: [4/4]0xc000117b20
+0.3086088907313406 0.19139110926865935 0.19139110926865935 0.3086088907313406 
+dir: 3
+
 
 ### Tests
 
 - Hvordan skal vi lave tests
 
 
-### Fremtidige ideer / todo
+
+## Fremtidige ideer / todo
 
 - Lav bane patterns, så man sœtter nogen punkter som justerings vektorene peger på, for på den måde at man også kan lave nogen lidt interessante patterns
 - Man kan måske lave nogen små grupper af paths i hjørnerne osv. Så pathen måske ikke er så tydelige
@@ -318,9 +383,10 @@
       - Det er smart at mzTrack er en pointer fordi den vel du ikke kopiere rundt alle steder
       - Men man vil alligevel altid kun have 1 Maze objekt, så man behøver ikke rigtig have denne form for sync mellem steder.
       - At bruge pointers vil generelt give lidt flere mulig og så lœrer man også noget nyt så lad os gøre det
+- Kunne lave skrå paths.
 
 
-### Teoretiske spørgsmål
+## Teoretiske spørgsmål
 
 - Hvor mange steps tager det i snit før man har dannet en path til target
   - Jeg er ikke sikker på at dette ville vœre et sœrlig godt mål
@@ -328,7 +394,7 @@
 - Hvad er ss for at en off-shoot path rammer target før main-path
 - Hvad ville vœre et godt mål for en god labyrint
 
-### Potential problemer
+## Potential problemer
 
 - Pathen cirkler rundt og rammer sig selv, men det sker der vel som sådan ikke noget ved
 - Hvordan sikre vi at hele labyrinten ikke bliver taget før der kommer en path

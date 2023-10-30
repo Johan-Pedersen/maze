@@ -13,11 +13,12 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +57 model/maze/maze.go
+badd +8 model/maze/maze.go
 badd +1 term://~/src/maze//25509:/usr/bin/zsh
-badd +297 tanker.md
-badd +1 model/maze/mazeUtil.go
-badd +7 ~/go/src/goplayground/main.go
+badd +316 tanker.md
+badd +21 main.go
+badd +38 model/maze/mazeUtil.go
+badd +6 ~/go/src/goplayground/main.go
 argglobal
 %argdel
 tabnew +setlocal\ bufhidden=wipe
@@ -44,11 +45,12 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 exe 'vert 1resize ' . ((&columns * 105 + 105) / 211)
-exe '2resize ' . ((&lines * 24 + 26) / 53)
+exe '2resize ' . ((&lines * 25 + 27) / 55)
 exe 'vert 2resize ' . ((&columns * 105 + 105) / 211)
-exe '3resize ' . ((&lines * 25 + 26) / 53)
+exe '3resize ' . ((&lines * 26 + 27) / 55)
 exe 'vert 3resize ' . ((&columns * 105 + 105) / 211)
 argglobal
+balt main.go
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -59,12 +61,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 57 - ((32 * winheight(0) + 25) / 50)
+let s:l = 8 - ((7 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 57
-normal! 029|
+keepjumps 8
+normal! 0
 wincmd w
 argglobal
 if bufexists(fnamemodify("model/maze/mazeUtil.go", ":p")) | buffer model/maze/mazeUtil.go | else | edit model/maze/mazeUtil.go | endif
@@ -82,12 +84,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 24 - ((23 * winheight(0) + 12) / 24)
+let s:l = 51 - ((22 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 24
-normal! 0
+keepjumps 51
+normal! 09|
 wincmd w
 argglobal
 if bufexists(fnamemodify("term://~/src/maze//25509:/usr/bin/zsh", ":p")) | buffer term://~/src/maze//25509:/usr/bin/zsh | else | edit term://~/src/maze//25509:/usr/bin/zsh | endif
@@ -103,17 +105,17 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 47 - ((18 * winheight(0) + 12) / 25)
+let s:l = 26 - ((25 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 47
-normal! 040|
+keepjumps 26
+normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 105 + 105) / 211)
-exe '2resize ' . ((&lines * 24 + 26) / 53)
+exe '2resize ' . ((&lines * 25 + 27) / 55)
 exe 'vert 2resize ' . ((&columns * 105 + 105) / 211)
-exe '3resize ' . ((&lines * 25 + 26) / 53)
+exe '3resize ' . ((&lines * 26 + 27) / 55)
 exe 'vert 3resize ' . ((&columns * 105 + 105) / 211)
 tabnext
 edit tanker.md
@@ -136,7 +138,7 @@ set winwidth=1
 exe 'vert 1resize ' . ((&columns * 105 + 105) / 211)
 exe 'vert 2resize ' . ((&columns * 105 + 105) / 211)
 argglobal
-balt term://~/src/maze//25509:/usr/bin/zsh
+balt model/maze/mazeUtil.go
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -147,12 +149,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 297 - ((34 * winheight(0) + 25) / 50)
+let s:l = 316 - ((26 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 297
-normal! 06|
+keepjumps 316
+normal! 0129|
 wincmd w
 argglobal
 if bufexists(fnamemodify("~/go/src/goplayground/main.go", ":p")) | buffer ~/go/src/goplayground/main.go | else | edit ~/go/src/goplayground/main.go | endif
@@ -170,11 +172,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 11 - ((10 * winheight(0) + 25) / 50)
+let s:l = 6 - ((5 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 11
+keepjumps 6
 normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 105 + 105) / 211)
@@ -194,7 +196,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
