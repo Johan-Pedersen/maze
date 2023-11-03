@@ -263,12 +263,16 @@
     - Fordi vi kan jo ikke bare nøjes med en target zone af 1x1, hvis der skal vœre en target zone, så skal den vœre størrer
     - Men det kan man jo også sagtns gøre
 
-- Path creations
-  - Problemet med ripples er at procentvis er det stadig stort set en uniform fordeling.
-  - Dette leder til at man ikke rigtig får en retning på vores paths, så den bliver bare meget tyk 
-  - Så hvis vi laver ripples, så skal det belønnes meget mere at komme tœttere på target endnu.
+#### Path creation
 
-  - Tror vektor metoden er lidt bedre fordi det er nemmere at skrue på for at få den rigtige retning uden at skulle komme ud i nogen mega store tal og sådan noget shit.
+- Problemet med ripples er at procentvis er det stadig stort set en uniform fordeling.
+- Dette leder til at man ikke rigtig får en retning på vores paths, så den bliver bare meget tyk 
+- Så hvis vi laver ripples, så skal det belønnes meget mere at komme tœttere på target endnu.
+
+- Tror vektor metoden er lidt bedre fordi det er nemmere at skrue på for at få den rigtige retning uden at skulle komme ud i nogen mega store tal og sådan noget shit.
+
+- vektor produktet
+
 
 #### path adjusting
 
@@ -333,6 +337,29 @@
   - Når man laver en derefrence s∑ allokere man memory, somi så bare kopiere det pointeren peger på.
   - 
 
+- stepVectorProduct
+  - Så skal man have en step funktion som tager en head og en et target
+
+  - PathCoordinates skal vœre et array af pointers
+
+  - hvordan bruger vi indre produkt til at finde procenten
+  - Hvad skal stepToTarget gøre 
+    - hvad er processen
+      - find indre product 
+
+  - Find enhedsvektor fra head til target
+  - Enhedsvektor fra head til valid celler
+
+  - Hvordan udregner vi så en procent 
+    - Det behøver ikke direkte at blive til en procent, men det skal kunne omdannes til en og så kan det ikke blive >1
+
+    - vi finder det indre produkt mellem <head, celle> og <head, target>
+    - Ud fra den totale sum, siger vi så hvilken vœgt hver dir har.
+    - Dette fungere bare ikke når man er i en lige linje med target.
+    - Så en solution kunne vœre at auto genere "targets" som man så køre med i 2-3 runder og så skifter de. Skal så bare finde ud af hvor mange runder vi gøre dette.
+    - Og så kunne det måske vœre at hver head havde deres egen "target". 
+    - Til sidst kunne man så placere en target zone et sted der passer ?
+
 #### sampling
 
 - Genere et random tal mellem 0 og 1.
@@ -368,6 +395,14 @@ dir: 3
 ### Tests
 
 - Hvordan skal vi lave tests
+
+### Modulœr kode
+
+- Koden burde laves modulœrt, så uafh af hvilken metode du bruger til at steppe så er det nemt at skifte fra 1 metode til en anden.
+- Så det handler om bare at kunne skifte 1 metode ud med en anden uden der kommer duplikeret kode.
+
+- Step algorithmen har også en effekt på hvordan du behandler maze i starten.
+  - Der er en sammenhœng og man burde bruge et design pattern så man skifter alt der har med ripple hvis ikke det er den algoritme man bruger.
 
 
 

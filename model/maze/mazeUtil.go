@@ -57,3 +57,10 @@ func PrintMaze(mz Maze) {
 func Norm(x1, x2 int) float64 {
 	return math.Sqrt(math.Pow(float64(x1), 2) + math.Pow(float64(x2), 2))
 }
+
+/*
+input vectors: (x1,x2), (y1,y2)
+*/
+func InnerProduct(x1, x2, y1, y2 int) int {
+	return x1*y1 + x2*y2
+}
