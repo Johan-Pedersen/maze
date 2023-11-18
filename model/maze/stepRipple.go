@@ -4,7 +4,7 @@ import (
 	"gonum.org/v1/gonum/mat"
 )
 
-func ripple(mz *mat.Dense, target Coordinate) {
+func ripple(mz *mat.Dense, target coordinate) {
 	yBound, xBound := mz.Dims()
 	for x := 0; x < xBound; x++ {
 		for y := 0; y < yBound; y++ {

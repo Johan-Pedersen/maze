@@ -11,7 +11,7 @@ import (
 	"gonum.org/v1/gonum/mat"
 )
 
-type Coordinate struct {
+type coordinate struct {
 	// Hvorfor skal alle disse vœre public
 	X, Y int
 }
@@ -19,9 +19,9 @@ type Coordinate struct {
 type Maze struct {
 	Maze *mat.Dense `json:"maze_track,omitempty"`
 
-	Target Coordinate `json:"target,omitempty"`
+	Target coordinate `json:"target,omitempty"`
 
-	Paths []Coordinate `json:"paths,omitempty"`
+	Paths []coordinate `json:"paths,omitempty"`
 
 	YBound, XBound int
 }
@@ -37,14 +37,14 @@ type Vector struct {
 /*
 Create vector
 */
-func NewVector(head, target Coordinate) Vector {
+func NewVector(head, target coordinate) Vector {
 	return Vector{target.X - head.X, target.Y - head.Y}
 }
 
 /*
 Create normalized vector, with ||vec||_2 =1
 */
-func NewNormVector(head, target Coordinate) Vector {
+func NewNormVector(head, target coordinate) Vector {
 	vec := NewVector(head, target)
 	return Vector{(vec.X) / int(Norm(vec)), vec.Y / int(Norm(vec))}
 }
@@ -58,6 +58,6 @@ const (
 	Down  StepDirection = 3
 )
 
-func (path Coordinate) String() string {
+func (path coordinate) String() string {
 	return fmt.Sprintf("X: %d, Y: %d", path.X, path.Y)
 }

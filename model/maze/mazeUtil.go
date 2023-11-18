@@ -11,7 +11,7 @@ import (
 Generate x,y targetzone
 */
 
-func GenTargetZone(r, c int) Coordinate {
+func GenTargetZone(r, c int) coordinate {
 	margin := 0.15
 
 	yLowerBound := int(margin * float64(r))
@@ -24,7 +24,7 @@ func GenTargetZone(r, c int) Coordinate {
 	y := rn.Intn(yUpperBound-yLowerBound) + yLowerBound
 	x := rn.Intn(xUpperBound-xLowerBound) + xLowerBound
 
-	return Coordinate{x, y}
+	return coordinate{x, y}
 }
 
 /*

@@ -7,7 +7,7 @@ import (
 
 func step(probs []float64, mz Maze) {
 	// Dette er selve step metoden
-	dir := Sample(probs)
+	dir := sample(probs)
 
 	head := &mz.Paths[0]
 
@@ -32,7 +32,7 @@ func step(probs []float64, mz Maze) {
 	mz.Maze.Set(head.Y, head.X, 0)
 }
 
-func Sample(probs []float64) StepDirection {
+func sample(probs []float64) StepDirection {
 	summedProbs := make([]float64, len(probs))
 
 	// Det her er vel noget pointer shit
@@ -83,7 +83,7 @@ Checks if the step direction is valid from given path coordinate
 Kan fejle ved dir == Down og head.Y = 0
 */
 
-func isDirValid(dir StepDirection, head Coordinate,
+func isDirValid(dir StepDirection, head coordinate,
 	xAxisBound, yAxisBound int,
 ) bool {
 	return (dir == Left && head.X != 0) ||
