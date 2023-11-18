@@ -13,12 +13,10 @@ func NewMaze(r, c int) Maze {
 	}
 
 	// Generate 2x2 target zone
-	targetX, targetY := TargetZone(r, c)
-
 	mz := &Maze{
 		Maze:   mat.NewDense(r, c, data),
-		Target: TargetCoordinate{targetX, targetY},
-		Paths:  []PathCoordinate{},
+		Target: GenTargetZone(r, c),
+		Paths:  []Coordinate{},
 		YBound: r,
 		XBound: c,
 	}
@@ -36,13 +34,13 @@ func NewMaze(r, c int) Maze {
 	mz2 := Maze{
 		Maze:   maze2,
 		Target: mz.Target,
-		Paths:  append(mz.Paths, PathCoordinate{0, 0}),
+		Paths:  append(mz.Paths, Coordinate{0, 0}),
 		YBound: mz.YBound,
 		XBound: mz.XBound,
 	}
 
 	createPath(mz)
-	println("Target: (", targetX, targetY, ")")
+	println("Target: (", mz.Target.X, mz.Target.Y, ")")
 
 	PrintMaze(mz2)
 	println(&maze2)
@@ -52,7 +50,7 @@ func NewMaze(r, c int) Maze {
 
 func createPath(mz *Maze) {
 	// Init first position
-	mz.Paths = append(mz.Paths, PathCoordinate{0, 0})
+	mz.Paths = append(mz.Paths, Coordinate{0, 0})
 
 	// mzTrack := mz.Maze
 	mz.Maze.Set(0, 0, float64(0))
@@ -70,6 +68,8 @@ func createPath(mz *Maze) {
 		println("******************", i)
 
 		// stepRipple(mz)
+
+		StepVectorProduct(mz)
 
 		PrintMaze(*mz)
 

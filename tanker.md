@@ -263,6 +263,82 @@
     - Fordi vi kan jo ikke bare nøjes med en target zone af 1x1, hvis der skal vœre en target zone, så skal den vœre størrer
     - Men det kan man jo også sagtns gøre
 
+#### stepVectorProduct
+  - Så skal man have en step funktion som tager en head og en et target
+
+  - PathCoordinates skal vœre et array af pointers
+
+  - hvordan bruger vi indre produkt til at finde procenten
+  - Hvad skal stepToTarget gøre 
+    - hvad er processen
+      - find indre product 
+
+  - Find enhedsvektor fra head til target
+  - Enhedsvektor fra head til valid celler
+
+  - Hvordan udregner vi så en procent 
+    - Det behøver ikke direkte at blive til en procent, men det skal kunne omdannes til en og så kan det ikke blive >1
+
+    - vi finder det indre produkt mellem <head, celle> og <head, target>
+    - Ud fra den totale sum, siger vi så hvilken vœgt hver dir har.
+    - Dette fungere bare ikke når man er i en lige linje med target.
+    - Så en solution kunne vœre at auto genere "targets" som man så køre med i 2-3 runder og så skifter de. Skal så bare finde ud af hvor mange runder vi gøre dette.
+    - Og så kunne det måske vœre at hver head havde deres egen "target". 
+    - Til sidst kunne man så placere en target zone et sted der passer ?
+
+##### stepVectorProduct
+
+- Tag 1 skridt i en valid retning
+
+
+- Der er ingen grund til at have flere forskellige typer for den samme data. Så vi burde kun have 1 universel struct til at holde koordinater.
+
+- game plan
+  - For nu skal vi ikke rigtig bruge mz.Target
+  - Hver gang denne tager et step så skal det vœre i en ny direction
+  - Vi har allerede logikken til at tage steppet, vi skal bare finde ss for at gøre det ordenlight.
+
+- Det virker som om at step og maze pakken er så tœt koplet at de burde vœre i den samme pakke.
+  - Step kan ikke eksistere uden Maze og Maze kan ikke eksister uden step
+  
+- Man kan sige at step er jo et ideelt sted at bruge et interface fordi vi har 2 forskellige step metoder.
+  - Men spø®gsmålet er om der kommer flere fordi hvis ikek der gør det så er det nok ligegylidt at implementer dem.
+  - Men det kan man også sige, hvorfor så overhovedet dele det ud i sin separatert pakke, hvis der klun er 1.
+
+##### Arkitektur
+
+- top referes i bunden 
+
+- newMaze
+  - step
+  - stepVector 
+
+- step
+  - stepVector
+
+- stepVector
+  - newMaze
+
+-nuvœrende 
+- step <->(newMaze) stepVector <-> newMaze
+
+- ideelt
+- step -> stepVector -> newMaze <- stepVector_I
+
+- problem
+  - Alle typer der bruges ligger i maze pakken
+    - Hvilket jo giver logisk set mening, men det giver bare circulœre dependencies, uanset hvad
+    - Måden er jo så at man skal have en type pakke som ikke refere til nogen andre.
+      - Det kan godt lade sige gøre fordi denne pakke skal kun refere til sig selv.
+      - Det er bare grimt fordi så har vi ikke typerne der hvor de hører til
+      - Eller så skal man have en masse mini pakker for hver struct
+      - Det er bare mega grimt og ikke rigtig hvad der er tiltœnkt med en pakke.
+  - step -> stepVector -> newMaze
+
+
+- Problemet
+  - Vi bruger 
+
 #### Path creation
 
 - Problemet med ripples er at procentvis er det stadig stort set en uniform fordeling.
@@ -337,28 +413,6 @@
   - Når man laver en derefrence s∑ allokere man memory, somi så bare kopiere det pointeren peger på.
   - 
 
-- stepVectorProduct
-  - Så skal man have en step funktion som tager en head og en et target
-
-  - PathCoordinates skal vœre et array af pointers
-
-  - hvordan bruger vi indre produkt til at finde procenten
-  - Hvad skal stepToTarget gøre 
-    - hvad er processen
-      - find indre product 
-
-  - Find enhedsvektor fra head til target
-  - Enhedsvektor fra head til valid celler
-
-  - Hvordan udregner vi så en procent 
-    - Det behøver ikke direkte at blive til en procent, men det skal kunne omdannes til en og så kan det ikke blive >1
-
-    - vi finder det indre produkt mellem <head, celle> og <head, target>
-    - Ud fra den totale sum, siger vi så hvilken vœgt hver dir har.
-    - Dette fungere bare ikke når man er i en lige linje med target.
-    - Så en solution kunne vœre at auto genere "targets" som man så køre med i 2-3 runder og så skifter de. Skal så bare finde ud af hvor mange runder vi gøre dette.
-    - Og så kunne det måske vœre at hver head havde deres egen "target". 
-    - Til sidst kunne man så placere en target zone et sted der passer ?
 
 #### sampling
 

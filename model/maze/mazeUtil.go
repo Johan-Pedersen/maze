@@ -10,7 +10,8 @@ import (
 /*
 Generate x,y targetzone
 */
-func TargetZone(r, c int) (x, y int) {
+
+func GenTargetZone(r, c int) Coordinate {
 	margin := 0.15
 
 	yLowerBound := int(margin * float64(r))
@@ -20,10 +21,10 @@ func TargetZone(r, c int) (x, y int) {
 	xUpperBound := int((1 - margin) * float64(c))
 
 	rn := rand.New(rand.NewSource(2))
-	y = rn.Intn(yUpperBound-yLowerBound) + yLowerBound
-	x = rn.Intn(xUpperBound-xLowerBound) + xLowerBound
+	y := rn.Intn(yUpperBound-yLowerBound) + yLowerBound
+	x := rn.Intn(xUpperBound-xLowerBound) + xLowerBound
 
-	return x, y
+	return Coordinate{x, y}
 }
 
 /*
@@ -54,13 +55,16 @@ func PrintMaze(mz Maze) {
 	fmt.Print("  ", strings.Repeat("- ", cols), "\n")
 }
 
-func Norm(x1, x2 int) float64 {
-	return math.Sqrt(math.Pow(float64(x1), 2) + math.Pow(float64(x2), 2))
+/*
+Norm of vector vec (x y)
+*/
+func Norm(vec Vector) float64 {
+	return math.Sqrt(math.Pow(float64(vec.X), 2) + math.Pow(float64(vec.Y), 2))
 }
 
 /*
 input vectors: (x1,x2), (y1,y2)
 */
-func InnerProduct(x1, x2, y1, y2 int) int {
-	return x1*y1 + x2*y2
+func InnerProduct(vec1 Vector, vec2 Vector) int {
+	return vec1.X*vec2.X + vec1.Y*vec2.Y
 }
