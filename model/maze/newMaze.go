@@ -63,15 +63,19 @@ func createPath(mz *Maze) {
 	println("Down:", Down)
 	fmt.Println("dims", mz.XBound, mz.YBound)
 	// Tager 10 skridt
-	for i := 0; i < 20; i++ {
+	for i := 0; i < 10; i++ {
 
 		println("******************", i)
 
+		rows, cols := mz.Maze.Dims()
 		// stepRipple(mz)
+		target := GenTargetZone(rows, cols)
 
-		stepVectorProduct(mz)
-
+		for j := 0; j < 5; j++ {
+			stepVectorProduct(mz, target)
 		PrintMaze(*mz)
+		}
+
 
 	}
 }

@@ -3,7 +3,7 @@ package maze
 /*
 Tag 1 skridt i en valid retning
 */
-func stepVectorProduct(mz *Maze) {
+func stepVectorProduct(mz *Maze, target coordinate) {
 	dirs := validDirs(mz)
 
 	head := mz.Paths[0]
@@ -12,9 +12,8 @@ func stepVectorProduct(mz *Maze) {
 	// Vektorne har vi allerede
 
 	// find target koordinate og vector
-	rows, cols := mz.Maze.Dims()
 
-	target := GenTargetZone(rows, cols)
+	println("target: ", "(", target.X, target.Y, ")")
 
 	targetDir := NewNormVector(head, target)
 
@@ -30,27 +29,26 @@ func stepVectorProduct(mz *Maze) {
 		case Left:
 			cellVector := NewNormVector(head, coordinate{head.X - 1, head.Y})
 			innerProd := InnerProduct(cellVector, targetDir)
-
-			productSum += float64(innerProd)
-			products[Left] = float64(innerProd)
+			productSum += max(0, float64(innerProd))
+			products[Left] = max(0, float64(innerProd))
 
 		case Right:
 			cellVector := NewNormVector(head, coordinate{head.X + 1, head.Y})
 			innerProd := InnerProduct(cellVector, targetDir)
-			productSum += float64(innerProd)
-			products[Right] = float64(innerProd)
+			productSum += max(0, float64(innerProd))
+			products[Right] = max(0, float64(innerProd))
+
 		case Up:
 			cellVector := NewNormVector(head, coordinate{head.X, head.Y + 1})
 			innerProd := InnerProduct(cellVector, targetDir)
-			productSum += float64(innerProd)
+			productSum += max(0, float64(innerProd))
+			products[Up] = max(0, float64(innerProd))
 
-			products[Up] = float64(innerProd)
 		case Down:
 			cellVector := NewNormVector(head, coordinate{head.X, head.Y - 1})
 			innerProd := InnerProduct(cellVector, targetDir)
-			productSum += float64(innerProd)
-
-			products[Down] = float64(innerProd)
+			productSum += max(0, float64(innerProd))
+			products[Down] = max(0, float64(innerProd))
 		}
 	}
 

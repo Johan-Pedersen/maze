@@ -14,6 +14,16 @@
 - Hvordan bruger vi vektoren til at œndre path
   - Vi skal gøre det muligt at man kan bruge float
   - Selv om det er mega trœls i forhold til koordinaterne er int. Men ellers kan man ikke have en rigtig normaliseret vektor
+- Rigtig håndtering man når target
+  - Tallene bliver NaN
+- Vi skal gå mod en faktik target i enden
+- En bedre måde at highlight ruten der er blevet valgt
+  - Man kan måske lave en BFS gennemgang hvor man starter i (0,0) og så highlight ruten på en måde
+- Hver x skridt skal man spawn en ny head
+- Bruger vi rent faktisk vœrdierne i matricen til noget
+  - vi gør når vi skal til at løbe den igenenm
+  - Gennemløbning af pakken kan vœre dens egen pakke
+    - Det skal det nok vœre i hvert fald.
 
 ## tekniske go ting
 

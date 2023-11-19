@@ -20,9 +20,9 @@ func GenTargetZone(r, c int) coordinate {
 	yUpperBound := int((1 - margin) * float64(r))
 	xUpperBound := int((1 - margin) * float64(c))
 
-	rn := rand.New(rand.NewSource(2))
-	y := rn.Intn(yUpperBound-yLowerBound) + yLowerBound
-	x := rn.Intn(xUpperBound-xLowerBound) + xLowerBound
+	// rn := rand.New(rand.NewSource(2))
+	y := rand.Intn(yUpperBound-yLowerBound) + yLowerBound
+	x := rand.Intn(xUpperBound-xLowerBound) + xLowerBound
 
 	return coordinate{x, y}
 }
@@ -42,7 +42,7 @@ func PrintMaze(mz Maze) {
 	head := mz.Paths[0]
 	fmt.Print("  ", strings.Repeat("_ ", cols), "\n")
 	for i := rows - 1; i >= 0; i-- {
-		fmt.Print("| ")
+		fmt.Print(i, "| ")
 		for j := 0; j < cols; j++ {
 			if head.X == j && head.Y == i {
 				fmt.Printf(" X  ")
@@ -53,6 +53,11 @@ func PrintMaze(mz Maze) {
 		fmt.Print("|\n")
 	}
 	fmt.Print("  ", strings.Repeat("- ", cols), "\n")
+	fmt.Print("   ")
+	for i := 0.0; i < float64(cols); i++ {
+		fmt.Printf("%.2f ", i)
+	}
+	fmt.Println()
 }
 
 /*
