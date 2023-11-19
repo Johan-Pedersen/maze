@@ -65,6 +65,6 @@ func Norm(vec Vector) float64 {
 /*
 input vectors: (x1,x2), (y1,y2)
 */
-func InnerProduct(vec1 Vector, vec2 Vector) int {
+func InnerProduct(vec1 Vector, vec2 Vector) float64 {
 	return vec1.X*vec2.X + vec1.Y*vec2.Y
 }

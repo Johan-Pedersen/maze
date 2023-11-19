@@ -9,6 +9,12 @@
 - Problemet er at selv om vi laver en dereference, så ligner det stadig at det er det samme objekt i memory der bliver rettet i. Og hvordan kan det vœre
   - Det er fordi det var en slice, og når man laver := med en slice, så er det det samme underliggende array.
 
+## todo
+
+- Hvordan bruger vi vektoren til at œndre path
+  - Vi skal gøre det muligt at man kan bruge float
+  - Selv om det er mega trœls i forhold til koordinaterne er int. Men ellers kan man ikke have en rigtig normaliseret vektor
+
 ## tekniske go ting
 
 - Hvordan kører man et go program
@@ -460,7 +466,7 @@ dir: 3
 
 
 
-## Fremtidige ideer / todo
+## Fremtidige ideer
 
 - Lav bane patterns, så man sœtter nogen punkter som justerings vektorene peger på, for på den måde at man også kan lave nogen lidt interessante patterns
 - Man kan måske lave nogen små grupper af paths i hjørnerne osv. Så pathen måske ikke er så tydelige
@@ -473,6 +479,7 @@ dir: 3
       - Men man vil alligevel altid kun have 1 Maze objekt, så man behøver ikke rigtig have denne form for sync mellem steder.
       - At bruge pointers vil generelt give lidt flere mulig og så lœrer man også noget nyt så lad os gøre det
 - Kunne lave skrå paths.
+
 
 
 ## Teoretiske spørgsmål

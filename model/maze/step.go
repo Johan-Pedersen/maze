@@ -58,7 +58,7 @@ func sample(probs []float64) StepDirection {
 }
 
 func validDirs(mz *Maze) []StepDirection {
-	dirs := make([]StepDirection, 3)
+	dirs := make([]StepDirection, 0, 3)
 
 	head := mz.Paths[0]
 

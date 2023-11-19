@@ -31,14 +31,14 @@ Defines the 2d vector (x y),
 as the vector going x steps on the x-axis and y steps on the y-axis
 */
 type Vector struct {
-	X, Y int
+	X, Y float64
 }
 
 /*
 Create vector
 */
 func NewVector(head, target coordinate) Vector {
-	return Vector{target.X - head.X, target.Y - head.Y}
+	return Vector{float64(target.X - head.X), float64(target.Y - head.Y)}
 }
 
 /*
@@ -46,7 +46,7 @@ Create normalized vector, with ||vec||_2 =1
 */
 func NewNormVector(head, target coordinate) Vector {
 	vec := NewVector(head, target)
-	return Vector{(vec.X) / int(Norm(vec)), vec.Y / int(Norm(vec))}
+	return Vector{(vec.X) / Norm(vec), vec.Y / Norm(vec)}
 }
 
 type StepDirection int
@@ -61,3 +61,4 @@ const (
 func (path coordinate) String() string {
 	return fmt.Sprintf("X: %d, Y: %d", path.X, path.Y)
 }
+

@@ -1,7 +1,6 @@
 package maze_test
 
 import (
-	"math/rand"
 	"testing"
 
 	"maze/model/maze"
