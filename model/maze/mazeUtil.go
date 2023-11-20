@@ -47,7 +47,12 @@ func PrintMaze(mz Maze) {
 			if head.X == j && head.Y == i {
 				fmt.Printf(" X  ")
 			} else {
-				fmt.Printf("%.2f ", mz.Maze.At(i, j))
+				cell := mz.Maze.At(i, j)
+				if cell == 0 {
+					fmt.Printf("\033[31m"+"%.2f ", mz.Maze.At(i, j))
+				} else {
+					fmt.Printf("\033[37m"+"%.2f ", mz.Maze.At(i, j))
+				}
 			}
 		}
 		fmt.Print("|\n")

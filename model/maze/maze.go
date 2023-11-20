@@ -61,4 +61,3 @@ const (
 func (path coordinate) String() string {
 	return fmt.Sprintf("X: %d, Y: %d", path.X, path.Y)
 }
-
