@@ -17,13 +17,12 @@
 - Rigtig håndtering man når target
   - Tallene bliver NaN
 - Vi skal gå mod en faktik target i enden
-- En bedre måde at highlight ruten der er blevet valgt
-  - Man kan måske lave en BFS gennemgang hvor man starter i (0,0) og så highlight ruten på en måde
 - Hver x skridt skal man spawn en ny head
 - Bruger vi rent faktisk vœrdierne i matricen til noget
   - vi gør når vi skal til at løbe den igenenm
-  - Gennemløbning af pakken kan vœre dens egen pakke
+  - Gennemløbning af matrizen kan vœre dens egen pakke
     - Det skal det nok vœre i hvert fald.
+- Når man stepper, så må en vald celle ikke vœre 0.
 
 ## tekniske go ting
 

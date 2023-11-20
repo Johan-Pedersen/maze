@@ -62,16 +62,16 @@ func validDirs(mz *Maze) []StepDirection {
 
 	head := mz.Paths[0]
 
-	if isDirValid(Left, head, mz.XBound, mz.YBound) {
+	if isDirValid(Left, head, mz.XBound, mz.YBound, mz) {
 		dirs = append(dirs, Left)
 	}
-	if isDirValid(Right, head, mz.XBound, mz.YBound) {
+	if isDirValid(Right, head, mz.XBound, mz.YBound, mz) {
 		dirs = append(dirs, Right)
 	}
-	if isDirValid(Up, head, mz.XBound, mz.YBound) {
+	if isDirValid(Up, head, mz.XBound, mz.YBound, mz) {
 		dirs = append(dirs, Up)
 	}
-	if isDirValid(Down, head, mz.XBound, mz.YBound) {
+	if isDirValid(Down, head, mz.XBound, mz.YBound, mz) {
 		dirs = append(dirs, Down)
 	}
 	return dirs
@@ -84,10 +84,10 @@ Kan fejle ved dir == Down og head.Y = 0
 */
 
 func isDirValid(dir StepDirection, head coordinate,
-	xAxisBound, yAxisBound int,
+	xAxisBound, yAxisBound int, mz *Maze,
 ) bool {
-	return (dir == Left && head.X != 0) ||
-		(dir == Right && head.X != xAxisBound-1) ||
-		(dir == Up && head.Y != yAxisBound-1) ||
-		(dir == Down && head.Y != 0)
+	return (dir == Left && head.X != 0 && mz.Maze.At(head.X-1, head.Y) != 0) ||
+		(dir == Right && head.X != xAxisBound-1 && mz.Maze.At(head.X+1, head.Y) != 0) ||
+		(dir == Up && head.Y != yAxisBound-1 && mz.Maze.At(head.X, head.Y+1) != 0) ||
+		(dir == Down && head.Y != 0 && mz.Maze.At(head.X, head.Y-1) != 0)
 }

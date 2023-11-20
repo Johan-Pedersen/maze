@@ -39,19 +39,19 @@ func stepRipple(mz *Maze) {
 
 	var distanceSum float64
 
-	if isDirValid(Left, *head, mz.XBound, mz.YBound) {
+	if isDirValid(Left, *head, mz.XBound, mz.YBound,mz) {
 		weights[Left] = mz.Maze.At(head.Y, head.X-1)
 		distanceSum += mz.Maze.At(head.Y, head.X-1)
 	}
-	if isDirValid(Right, *head, mz.XBound, mz.YBound) {
+	if isDirValid(Right, *head, mz.XBound, mz.YBound,mz) {
 		weights[Right] = mz.Maze.At(head.Y, head.X+1)
 		distanceSum += mz.Maze.At(head.Y, head.X+1)
 	}
-	if isDirValid(Up, *head, mz.XBound, mz.YBound) {
+	if isDirValid(Up, *head, mz.XBound, mz.YBound,mz) {
 		weights[Up] = mz.Maze.At(head.Y+1, head.X)
 		distanceSum += mz.Maze.At(head.Y+1, head.X)
 	}
-	if isDirValid(Down, *head, mz.XBound, mz.YBound) {
+	if isDirValid(Down, *head, mz.XBound, mz.YBound,mz) {
 		weights[Down] = mz.Maze.At(head.Y-1, head.X)
 		distanceSum += mz.Maze.At(head.Y-1, head.X)
 	}
