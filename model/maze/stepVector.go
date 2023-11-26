@@ -3,6 +3,7 @@ package maze
 import (
 	"fmt"
 	"log"
+	"math"
 )
 
 /*
@@ -20,10 +21,12 @@ func stepVectorProduct(mz *Maze, target coordinate) {
 
 	// find target koordinate og vector
 
+	fmt.Println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 	println("target: ", "(", target.x, target.y, ")")
 
 	targetDir := newNormVector(head, target)
 
+	fmt.Println("targetDir", targetDir.String())
 	var productSum float64 = 0
 
 	probs := make([]float64, 4)
@@ -35,33 +38,42 @@ func stepVectorProduct(mz *Maze, target coordinate) {
 		switch dir {
 		case Left:
 			cellVector := newNormVector(head, coordinate{head.x - 1, head.y})
+			fmt.Println("cell vector", cellVector.String())
 			innerProd := innerProduct(cellVector, targetDir)
 			productSum += max(0, float64(innerProd))
 			fmt.Println("InnerProd: ", innerProd)
+			fmt.Println("Angle between cellVector and target Vector:", math.Acos(innerProd)*180/math.Pi)
 			fmt.Println("ProductSum: ", productSum)
 			products[Left] = max(0, float64(innerProd))
 
 		case Right:
 			cellVector := newNormVector(head, coordinate{head.x + 1, head.y})
+
+			fmt.Println("cell vector", cellVector.String())
 			innerProd := innerProduct(cellVector, targetDir)
 			productSum += max(0, float64(innerProd))
 			fmt.Println("InnerProd: ", innerProd)
+			fmt.Println("Angle between cellVector and target Vector:", math.Acos(innerProd)*180/math.Pi)
 			fmt.Println("ProductSum: ", productSum)
 			products[Right] = max(0, float64(innerProd))
 
 		case Up:
 			cellVector := newNormVector(head, coordinate{head.x, head.y + 1})
+			fmt.Println("cell vector", cellVector.String())
 			innerProd := innerProduct(cellVector, targetDir)
 			productSum += max(0, float64(innerProd))
 			fmt.Println("InnerProd: ", innerProd)
+			fmt.Println("Angle between cellVector and target Vector:", math.Acos(innerProd)*180/math.Pi)
 			fmt.Println("ProductSum: ", productSum)
 			products[Up] = max(0, float64(innerProd))
 
 		case Down:
 			cellVector := newNormVector(head, coordinate{head.x, head.y - 1})
+			fmt.Println("cell vector", cellVector.String())
 			innerProd := innerProduct(cellVector, targetDir)
 			productSum += max(0, float64(innerProd))
 			fmt.Println("InnerProd: ", innerProd)
+			fmt.Println("Angle between cellVector and target Vector:", math.Acos(innerProd)*180/math.Pi)
 			fmt.Println("ProductSum: ", productSum)
 			products[Down] = max(0, float64(innerProd))
 		}

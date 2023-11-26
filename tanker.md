@@ -518,6 +518,15 @@ dir: 3
   - Så man skal på en måde finde ud af at sœtte target zone i et baret område.
   - Men hvis man gør det på den måde kan man jo ikke komme uden om at man støder i paths på et tidspunkt.
 
+  
+### ProductSum = 0
+- Hvilke situationer er productSum 0
+  - 1. Der er ingen rute man kan gå
+    - luk denne path
+  - 2. path1 = -path2
+    - Hvornår kan dette ske
+  - 3. target er vinkelret på head, men du kan kun gå til højre eller venstre -> hvor innerProd = 0
+
 ## Fremtidige ideer
 
 - Lav bane patterns, så man sœtter nogen punkter som justerings vektorene peger på, for på den måde at man også kan lave nogen lidt interessante patterns
@@ -531,7 +540,7 @@ dir: 3
       - Men man vil alligevel altid kun have 1 Maze objekt, så man behøver ikke rigtig have denne form for sync mellem steder.
       - At bruge pointers vil generelt give lidt flere mulig og så lœrer man også noget nyt så lad os gøre det
 - Kunne lave skrå paths.
-
+- En algoritme der laver mere klassiske labyrinter
 
 
 ## Teoretiske spørgsmål

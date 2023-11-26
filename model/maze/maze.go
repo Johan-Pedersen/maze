@@ -7,6 +7,7 @@ type fil
 
 import (
 	"fmt"
+	"strconv"
 
 	"gonum.org/v1/gonum/mat"
 )
@@ -31,6 +32,13 @@ as the vector going x steps on the x-axis and y steps on the y-axis
 */
 type vector struct {
 	x, y float64
+}
+
+func (vec vector) String() string {
+	return "(" +
+		strconv.FormatFloat(vec.x, 'f', -1, 64) + " " +
+		strconv.FormatFloat(vec.y, 'f', -1, 64) +
+		")"
 }
 
 /*
