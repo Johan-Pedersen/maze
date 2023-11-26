@@ -11,7 +11,7 @@ import (
 Generate x,y targetzone
 */
 
-func GenTargetZone(r, c int) coordinate {
+func genTargetZone(r, c int) coordinate {
 	margin := 0.15
 
 	yLowerBound := int(margin * float64(r))
@@ -30,7 +30,7 @@ func GenTargetZone(r, c int) coordinate {
 /*
 Map between (x,y) and the 1 D representation for mat.NewDense data
 */
-func CoordToDataPos(x, y, colDims int) int {
+func coordToDataPos(x, y, colDims int) int {
 	return colDims*y + x
 }
 
@@ -39,12 +39,12 @@ Print maze in a nice way
 */
 func PrintMaze(mz Maze) {
 	rows, cols := mz.Maze.Dims()
-	head := mz.Paths[0]
+	head := mz.paths[0]
 	fmt.Print("  ", strings.Repeat("_ ", cols), "\n")
 	for i := rows - 1; i >= 0; i-- {
 		fmt.Print(i, "| ")
 		for j := 0; j < cols; j++ {
-			if head.X == j && head.Y == i {
+			if head.x == j && head.y == i {
 				fmt.Printf(" X  ")
 			} else {
 				cell := mz.Maze.At(i, j)
@@ -68,13 +68,13 @@ func PrintMaze(mz Maze) {
 /*
 Norm of vector vec (x y)
 */
-func Norm(vec Vector) float64 {
-	return math.Sqrt(math.Pow(float64(vec.X), 2) + math.Pow(float64(vec.Y), 2))
+func norm(vec vector) float64 {
+	return math.Sqrt(math.Pow(float64(vec.x), 2) + math.Pow(float64(vec.y), 2))
 }
 
 /*
 input vectors: (x1,x2), (y1,y2)
 */
-func InnerProduct(vec1 Vector, vec2 Vector) float64 {
-	return vec1.X*vec2.X + vec1.Y*vec2.Y
+func innerProduct(vec1 vector, vec2 vector) float64 {
+	return vec1.x*vec2.x + vec1.y*vec2.y
 }

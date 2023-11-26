@@ -23,7 +23,9 @@
   - Gennemløbning af matrizen kan vœre dens egen pakke
     - Det skal det nok vœre i hvert fald.
 - Når man stepper, så må en vald celle ikke vœre 0.
+- fix getValidDirs, den virker ikke rigtig når man først har taget et par steps, så kan man godt få outofbounds error og ikke at gå på nogen celler der har 0 virker heller ikke.
 
+- Programmet er meget langsomt. Det tager lang tid før man får en maze
 ## tekniske go ting
 
 - Hvordan kører man et go program
@@ -461,6 +463,42 @@ probs: [4/4]0xc000117b20
 dir: 3
 
 
+### index_no_bound_checks
+
+- ved Rows sker fejlen når man er i Y=1 og vil tjek om man kan gå ned af 
+- Fejlen sker når man er i Y=0 og Y=1
+
+- Kan det vœre fordi at head ikke er korrekt?
+  - Det tror jeg ikke fordi, vi har vores kryds der passer med hvor vi er
+  - Og i de situationer, så bevœger vi os altid i den samme retning, så der er ingen grund til at den skulle tro den var i en højrer row end den er.
+
+- Der sker funky ting når probs bliver NaN, Så kan den ikke vœlge og går så bare efter en eller anden.
+
+- Hvordan kan det vœre det fungere fint når probs er NaN
+  - Det er fordi i sample returenere vi ikke en fejl hvis ikke der er en valid step direction
+  - Og vi returnere bare stepDirection(0) -> Left.
+
+- Hvornår får vi all NaN probs
+  - Det er når man får vektor{NaN, NaN}, som targetDiri stepVectorProduct
+  - Kan det ikke vœre når man rammer target 
+    - Det er det
+    - Hvordan skal vi håndtere det
+      - Så skal man vel bare finde et nyt target.
+
+- Det sker vel også hvis der er innerprod1 = x og innerprod2 = -x -> ProductSum = 0
+
+- Hvis TargetLander i en path man har vœret i.
+  - Mere generelt er det hvis når man kun kan gå til siderne eller bagud
+  - Fordi så fordi vi ikke vil lœgge 0 til productSum, så får vi productSum = 0
+
+- Vores største problem er de situationer hvor productSum kan blive 0.
+  - Det skal nok lige mappes, og så find en god løsning på disse.
+
+- equals metode for coordinate
+
+- Fik vi lavet sådan at vektorer godt kunne vœre floats.
+  - Ja
+
 ### Tests
 
 - Hvordan skal vi lave tests
@@ -474,6 +512,11 @@ dir: 3
   - Der er en sammenhœng og man burde bruge et design pattern så man skifter alt der har med ripple hvis ikke det er den algoritme man bruger.
 
 
+### target gen
+
+- Man skal måske vœlge hvordan man finder target. Fordi man skal ikke sœtte target zone i et sted som vi allerede har vœret på.
+  - Så man skal på en måde finde ud af at sœtte target zone i et baret område.
+  - Men hvis man gør det på den måde kan man jo ikke komme uden om at man støder i paths på et tidspunkt.
 
 ## Fremtidige ideer
 

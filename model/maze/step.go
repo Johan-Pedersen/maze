@@ -1,45 +1,42 @@
 package maze
 
 import (
+	"errors"
 	"fmt"
+	"log"
 	"math/rand"
+	"strconv"
 )
 
 func step(probs []float64, mz Maze) {
 	// Dette er selve step metoden
-	dir := sample(probs)
-
-	head := &mz.Paths[0]
+	dir, err := sample(probs)
+	if err != nil {
+		log.Fatal(err)
+	}
+	head := &mz.paths[0]
 
 	println("probs:")
-	println("Left:", Left, "Right:", Right, "Up:", Up, "Down:", Down)
-	for _, v := range probs {
-		fmt.Print(v, " ")
-	}
-	println("\ndir:", dir)
+	fmt.Println(probs)
+	fmt.Println("\ndir:", dir)
 
 	switch dir {
 	case Left:
-		head.X = head.X - 1
+		head.x = head.x - 1
 	case Right:
-		head.X = head.X + 1
+		head.x = head.x + 1
 	case Up:
-		head.Y = head.Y + 1
+		head.y = head.y + 1
 	case Down:
-		head.Y = head.Y - 1
+		head.y = head.y - 1
 	}
 
-	mz.Maze.Set(head.Y, head.X, 0)
+	mz.Maze.Set(head.y, head.x, 0)
 }
 
-func sample(probs []float64) StepDirection {
+func sample(probs []float64) (stepDirection, error) {
 	summedProbs := make([]float64, len(probs))
 
-	// Det her er vel noget pointer shit
-
-	// Når man arbejder med arrays, så er det vel pointers til arrayet i stedet for
-
-	// Undersøg
 	summedProbs[0] = probs[0]
 	step := rand.Float64()
 
@@ -50,29 +47,38 @@ func sample(probs []float64) StepDirection {
 
 	for i := 0; i < len(summedProbs); i++ {
 		if step < summedProbs[i] {
-			return StepDirection(i)
+			return stepDirection(i), nil
 		}
 	}
 	// Should be an error
-	return StepDirection(0)
+	return stepDirection(0), errors.New("could not sample directions. \nProbs: " + fmt.Sprintf("%v", probs) +
+		"\nstep: " + strconv.FormatFloat(step, 'f', -1, 64))
 }
 
-func validDirs(mz *Maze) []StepDirection {
-	dirs := make([]StepDirection, 0, 3)
+func getValidDirs(mz *Maze) []stepDirection {
+	dirs := make([]stepDirection, 0, 3)
 
-	head := mz.Paths[0]
+	head := mz.paths[0]
 
-	if isDirValid(Left, head, mz.XBound, mz.YBound, mz) {
-		dirs = append(dirs, Left)
+	if isDirValid(Left, head, mz.xBound, mz.yBound) {
+		if mz.Maze.At(head.y, head.x-1) != 0.00 {
+			dirs = append(dirs, Left)
+		}
 	}
-	if isDirValid(Right, head, mz.XBound, mz.YBound, mz) {
-		dirs = append(dirs, Right)
+	if isDirValid(Right, head, mz.xBound, mz.yBound) {
+		if mz.Maze.At(head.y, head.x+1) != 0.00 {
+			dirs = append(dirs, Right)
+		}
 	}
-	if isDirValid(Up, head, mz.XBound, mz.YBound, mz) {
-		dirs = append(dirs, Up)
+	if isDirValid(Up, head, mz.xBound, mz.yBound) {
+		if mz.Maze.At(head.y+1, head.x) != 0.00 {
+			dirs = append(dirs, Up)
+		}
 	}
-	if isDirValid(Down, head, mz.XBound, mz.YBound, mz) {
-		dirs = append(dirs, Down)
+	if isDirValid(Down, head, mz.xBound, mz.yBound) {
+		if mz.Maze.At(head.y-1, head.x) != 0.00 {
+			dirs = append(dirs, Down)
+		}
 	}
 	return dirs
 }
@@ -80,14 +86,13 @@ func validDirs(mz *Maze) []StepDirection {
 /*
 Checks if the step direction is valid from given path coordinate
 
-Kan fejle ved dir == Down og head.Y = 0
 */
 
-func isDirValid(dir StepDirection, head coordinate,
-	xAxisBound, yAxisBound int, mz *Maze,
+func isDirValid(dir stepDirection, head coordinate,
+	xAxisBound, yAxisBound int,
 ) bool {
-	return (dir == Left && head.X != 0 && mz.Maze.At(head.X-1, head.Y) != 0) ||
-		(dir == Right && head.X != xAxisBound-1 && mz.Maze.At(head.X+1, head.Y) != 0) ||
-		(dir == Up && head.Y != yAxisBound-1 && mz.Maze.At(head.X, head.Y+1) != 0) ||
-		(dir == Down && head.Y != 0 && mz.Maze.At(head.X, head.Y-1) != 0)
+	return (dir == Left && head.x != 0) ||
+		(dir == Right && head.x != xAxisBound-1) ||
+		(dir == Up && head.y != yAxisBound-1) ||
+		(dir == Down && head.y != 0)
 }

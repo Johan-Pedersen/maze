@@ -1,21 +1,28 @@
 package maze
 
+import (
+	"fmt"
+	"log"
+)
+
 /*
 Tag 1 skridt i en valid retning
 */
 func stepVectorProduct(mz *Maze, target coordinate) {
-	dirs := validDirs(mz)
+	dirs := getValidDirs(mz)
 
-	head := mz.Paths[0]
+	fmt.Println("Valid dirs", dirs)
+
+	head := mz.paths[0]
 
 	// find valid paths og vektorne til dem
 	// Vektorne har vi allerede
 
 	// find target koordinate og vector
 
-	println("target: ", "(", target.X, target.Y, ")")
+	println("target: ", "(", target.x, target.y, ")")
 
-	targetDir := NewNormVector(head, target)
+	targetDir := newNormVector(head, target)
 
 	var productSum float64 = 0
 
@@ -27,33 +34,46 @@ func stepVectorProduct(mz *Maze, target coordinate) {
 		// find indre produkt
 		switch dir {
 		case Left:
-			cellVector := NewNormVector(head, coordinate{head.X - 1, head.Y})
-			innerProd := InnerProduct(cellVector, targetDir)
+			cellVector := newNormVector(head, coordinate{head.x - 1, head.y})
+			innerProd := innerProduct(cellVector, targetDir)
 			productSum += max(0, float64(innerProd))
+			fmt.Println("InnerProd: ", innerProd)
+			fmt.Println("ProductSum: ", productSum)
 			products[Left] = max(0, float64(innerProd))
 
 		case Right:
-			cellVector := NewNormVector(head, coordinate{head.X + 1, head.Y})
-			innerProd := InnerProduct(cellVector, targetDir)
+			cellVector := newNormVector(head, coordinate{head.x + 1, head.y})
+			innerProd := innerProduct(cellVector, targetDir)
 			productSum += max(0, float64(innerProd))
+			fmt.Println("InnerProd: ", innerProd)
+			fmt.Println("ProductSum: ", productSum)
 			products[Right] = max(0, float64(innerProd))
 
 		case Up:
-			cellVector := NewNormVector(head, coordinate{head.X, head.Y + 1})
-			innerProd := InnerProduct(cellVector, targetDir)
+			cellVector := newNormVector(head, coordinate{head.x, head.y + 1})
+			innerProd := innerProduct(cellVector, targetDir)
 			productSum += max(0, float64(innerProd))
+			fmt.Println("InnerProd: ", innerProd)
+			fmt.Println("ProductSum: ", productSum)
 			products[Up] = max(0, float64(innerProd))
 
 		case Down:
-			cellVector := NewNormVector(head, coordinate{head.X, head.Y - 1})
-			innerProd := InnerProduct(cellVector, targetDir)
+			cellVector := newNormVector(head, coordinate{head.x, head.y - 1})
+			innerProd := innerProduct(cellVector, targetDir)
 			productSum += max(0, float64(innerProd))
+			fmt.Println("InnerProd: ", innerProd)
+			fmt.Println("ProductSum: ", productSum)
 			products[Down] = max(0, float64(innerProd))
 		}
 	}
 
+	if productSum == 0 {
+		log.Fatal("productSum = 0")
+	}
+
 	// find procent
 
+	fmt.Println("")
 	for i := 0; i < 4; i++ {
 		// Dette er forkert, her er det den der ligger lœngest vœk som har størst ss for at blive valgt.
 		probs[i] = products[i] / productSum
@@ -62,5 +82,5 @@ func stepVectorProduct(mz *Maze, target coordinate) {
 	step(probs, *mz)
 
 	// lav step mod target
-	// stepToTarget(&head, maze.TargetCoordinate{tmpTargetX, tmpTargetY})
+	// stepToTarget(&head, maze.TargetCoordinate{tmpTargetx, tmpTargety})
 }

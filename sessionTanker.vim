@@ -13,12 +13,13 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +27 model/maze/maze.go
-badd +8 ~/src/maze/model/maze/step/stepVector.go
-badd +72 model/maze/newMaze.go
+badd +2 tanker.md
+badd +0 tanker2.md
 argglobal
 %argdel
-edit model/maze/newMaze.go
+$argadd tanker.md
+$argadd tanker2.md
+edit tanker.md
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -38,7 +39,6 @@ set winwidth=1
 exe 'vert 1resize ' . ((&columns * 105 + 105) / 211)
 exe 'vert 2resize ' . ((&columns * 105 + 105) / 211)
 argglobal
-balt model/maze/maze.go
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -49,18 +49,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 72 - ((46 * winheight(0) + 26) / 52)
+let s:l = 2 - ((1 * winheight(0) + 30) / 60)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 72
+keepjumps 2
 normal! 0
 wincmd w
 argglobal
-if bufexists(fnamemodify("~/src/maze/model/maze/step/stepVector.go", ":p")) | buffer ~/src/maze/model/maze/step/stepVector.go | else | edit ~/src/maze/model/maze/step/stepVector.go | endif
-if &buftype ==# 'terminal'
-  silent file ~/src/maze/model/maze/step/stepVector.go
-endif
+2argu
+balt tanker.md
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -71,14 +69,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 8 - ((7 * winheight(0) + 26) / 52)
+let s:l = 1 - ((0 * winheight(0) + 30) / 60)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 8
+keepjumps 1
 normal! 0
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 105 + 105) / 211)
 exe 'vert 2resize ' . ((&columns * 105 + 105) / 211)
 tabnext 1

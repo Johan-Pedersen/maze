@@ -12,52 +12,68 @@ import (
 )
 
 type coordinate struct {
-	// Hvorfor skal alle disse vœre public
-	X, Y int
+	x, y int
 }
 
 type Maze struct {
-	Maze *mat.Dense `json:"maze_track,omitempty"`
+	Maze *mat.Dense
 
-	Target coordinate `json:"target,omitempty"`
+	Target coordinate
 
-	Paths []coordinate `json:"paths,omitempty"`
+	paths []coordinate
 
-	YBound, XBound int
+	yBound, xBound int
 }
 
 /*
 Defines the 2d vector (x y),
 as the vector going x steps on the x-axis and y steps on the y-axis
 */
-type Vector struct {
-	X, Y float64
+type vector struct {
+	x, y float64
 }
 
 /*
 Create vector
 */
-func NewVector(head, target coordinate) Vector {
-	return Vector{float64(target.X - head.X), float64(target.Y - head.Y)}
+func newVector(head, target coordinate) vector {
+	return vector{float64(target.x - head.x), float64(target.y - head.y)}
 }
 
 /*
 Create normalized vector, with ||vec||_2 =1
 */
-func NewNormVector(head, target coordinate) Vector {
-	vec := NewVector(head, target)
-	return Vector{(vec.X) / Norm(vec), vec.Y / Norm(vec)}
+func newNormVector(head, target coordinate) vector {
+	vec := newVector(head, target)
+	return vector{(vec.x) / norm(vec), vec.y / norm(vec)}
 }
 
-type StepDirection int
+type stepDirection int
 
 const (
-	Left  StepDirection = 0
-	Right StepDirection = 1
-	Up    StepDirection = 2
-	Down  StepDirection = 3
+	Left  stepDirection = 0
+	Right stepDirection = 1
+	Up    stepDirection = 2
+	Down  stepDirection = 3
 )
 
-func (path coordinate) String() string {
-	return fmt.Sprintf("X: %d, Y: %d", path.X, path.Y)
+func (dir stepDirection) String() string {
+	switch dir {
+	case 0:
+		return "Left"
+	case 1:
+		return "Right"
+	case 2:
+		return "Up"
+	default:
+		return "Down"
+	}
+}
+
+func (coord coordinate) String() string {
+	return fmt.Sprintf("X: %d, Y: %d", coord.x, coord.y)
+}
+
+func (coord coordinate) equals(other coordinate) bool {
+	return other.x == coord.x && other.y == coord.y
 }

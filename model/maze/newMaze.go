@@ -15,10 +15,10 @@ func NewMaze(r, c int) Maze {
 	// Generate 2x2 target zone
 	mz := &Maze{
 		Maze:   mat.NewDense(r, c, data),
-		Target: GenTargetZone(r, c),
-		Paths:  []coordinate{},
-		YBound: r,
-		XBound: c,
+		Target: genTargetZone(r, c),
+		paths:  []coordinate{},
+		yBound: r,
+		xBound: c,
 	}
 
 	data2 := make([]float64, r*c)
@@ -34,13 +34,13 @@ func NewMaze(r, c int) Maze {
 	mz2 := Maze{
 		Maze:   maze2,
 		Target: mz.Target,
-		Paths:  append(mz.Paths, coordinate{0, 0}),
-		YBound: mz.YBound,
-		XBound: mz.XBound,
+		paths:  append(mz.paths, coordinate{0, 0}),
+		yBound: mz.yBound,
+		xBound: mz.xBound,
 	}
 
 	createPath(mz)
-	println("Target: (", mz.Target.X, mz.Target.Y, ")")
+	println("Target: (", mz.Target.x, mz.Target.y, ")")
 
 	PrintMaze(mz2)
 	println(&maze2)
@@ -50,7 +50,7 @@ func NewMaze(r, c int) Maze {
 
 func createPath(mz *Maze) {
 	// Init first position
-	mz.Paths = append(mz.Paths, coordinate{0, 0})
+	mz.paths = append(mz.paths, coordinate{0, 0})
 
 	// mzTrack := mz.Maze
 	mz.Maze.Set(0, 0, float64(0))
@@ -61,19 +61,23 @@ func createPath(mz *Maze) {
 	println("Right", Right)
 	println("Up:", Up)
 	println("Down:", Down)
-	fmt.Println("dims", mz.XBound, mz.YBound)
+	fmt.Println("dims", mz.xBound, mz.yBound)
 	// Tager 10 skridt
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 3; i++ {
 
 		println("******************", i)
 
 		rows, cols := mz.Maze.Dims()
 		// stepRipple(mz)
-		target := GenTargetZone(rows, cols)
+		target := genTargetZone(rows, cols)
 
 		for j := 0; j < 5; j++ {
 			stepVectorProduct(mz, target)
 			PrintMaze(*mz)
+
+			if mz.paths[0].equals(target) {
+				break
+			}
 		}
 
 	}
