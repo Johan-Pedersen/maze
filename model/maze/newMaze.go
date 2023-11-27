@@ -46,11 +46,9 @@ func createPath(mz *Maze) {
 			stepVectorProduct(mz, target, &head)
 			PrintMaze(*mz, head)
 
-			/*
-				if mz.paths[0].equals(target) {
+				if head.equals(target) {
 					break
 				}
-			*/
 		}
 
 	}
