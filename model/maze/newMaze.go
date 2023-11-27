@@ -14,13 +14,11 @@ func NewMaze(r, c int) Maze {
 
 	mz := &Maze{
 		Maze:   mat.NewDense(r, c, data),
-		Target: genTargetZone(r, c),
 		yBound: r,
 		xBound: c,
 	}
 
 	createPath(mz)
-	println("Target: (", mz.Target.x, mz.Target.y, ")")
 
 	println(&mz.Maze)
 	return *mz

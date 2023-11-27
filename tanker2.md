@@ -62,4 +62,5 @@
 
 - Head bliver nødt til at vœre en pointer
 
-- concurrency
+- Hvordan sikre vi access til shared memory
+  - Skal nok have noget semaphore.

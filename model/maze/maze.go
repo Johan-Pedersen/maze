@@ -27,8 +27,6 @@ func (coord coordinate) equals(other coordinate) bool {
 type Maze struct {
 	Maze *mat.Dense
 
-	Target coordinate
-
 	yBound, xBound int
 }
 
