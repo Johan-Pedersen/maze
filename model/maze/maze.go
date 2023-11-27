@@ -29,8 +29,6 @@ type Maze struct {
 
 	Target coordinate
 
-	paths []coordinate
-
 	yBound, xBound int
 }
 

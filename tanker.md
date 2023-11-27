@@ -11,20 +11,8 @@
 
 ## todo
 
-- Hvordan bruger vi vektoren til at œndre path
-  - Vi skal gøre det muligt at man kan bruge float
-  - Selv om det er mega trœls i forhold til koordinaterne er int. Men ellers kan man ikke have en rigtig normaliseret vektor
-- Rigtig håndtering man når target
-  - Tallene bliver NaN
-- Vi skal gå mod en faktik target i enden
 - Hver x skridt skal man spawn en ny head
-- Bruger vi rent faktisk vœrdierne i matricen til noget
-  - vi gør når vi skal til at løbe den igenenm
-  - Gennemløbning af matrizen kan vœre dens egen pakke
-    - Det skal det nok vœre i hvert fald.
-- Når man stepper, så må en vald celle ikke vœre 0.
-- fix getValidDirs, den virker ikke rigtig når man først har taget et par steps, så kan man godt få outofbounds error og ikke at gå på nogen celler der har 0 virker heller ikke.
-- Programmet er meget langsomt. Det tager lang tid før man får en maze
+- Programmet er langsomt.
 - Lav om i program strukturen. Så hele projektet bare er en labyrint generator.
 
 ## tekniske go ting

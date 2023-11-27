@@ -8,13 +8,12 @@ import (
 	"strconv"
 )
 
-func step(probs []float64, mz Maze) {
+func step(probs []float64, mz Maze, head *coordinate) {
 	// Dette er selve step metoden
 	dir, err := sample(probs)
 	if err != nil {
 		log.Fatal(err)
 	}
-	head := &mz.paths[0]
 
 	println("probs:")
 	fmt.Println(probs)
@@ -55,10 +54,8 @@ func sample(probs []float64) (stepDirection, error) {
 		"\nstep: " + strconv.FormatFloat(step, 'f', -1, 64))
 }
 
-func getValidDirs(mz *Maze) []stepDirection {
+func getValidDirs(mz *Maze, head coordinate) []stepDirection {
 	dirs := make([]stepDirection, 0, 3)
-
-	head := mz.paths[0]
 
 	if isDirValid(Left, head, mz.xBound, mz.yBound) {
 		if mz.Maze.At(head.y, head.x-1) != 0.00 {

@@ -37,9 +37,8 @@ func coordToDataPos(x, y, colDims int) int {
 /*
 Print maze in a nice way
 */
-func PrintMaze(mz Maze) {
+func PrintMaze(mz Maze, head coordinate) {
 	rows, cols := mz.Maze.Dims()
-	head := mz.paths[0]
 	fmt.Print("  ", strings.Repeat("_ ", cols), "\n")
 	for i := rows - 1; i >= 0; i-- {
 		if i < 10 {

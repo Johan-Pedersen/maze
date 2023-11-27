@@ -52,8 +52,14 @@
   - Så skal man skile heads og maze af.
 
 - Hvordan skal Maze struct se ud
-  - Spørgsmålet er om target og paths skal vœre i denn
+  - Spørgsmålet er om target og paths skal vœre i den
   - Bruger vi Target field fra maze. Eller bliver den i forvejen bare givet med fra siden af?
   - paths kan vi godt skilde fra hinanden
   - Men hvis ikke vi har Target og paths, giver det så overhovedet mening at skulle have en bestemt bestemt Maze struct, da den egenligt bare er en mat.Dense og yBound, xBound, allerede ligger i det objekt.
   - Og når det allerede er en pointer, så er den vel sådan set allerede shared et eller andet sted.
+
+- Der er måske problemer i step, fordi der brugte jeg en pointer til head, men det er det ikke nu.
+
+- Head bliver nødt til at vœre en pointer
+
+- concurrency

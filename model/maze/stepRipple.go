@@ -35,23 +35,23 @@ func stepRipple(mz *Maze) {
 
 	// Det er noget pointer shit.
 	// Er det en pointer når det er et array ->
-	head := &mz.paths[0]
+	head := coordinate{0, 0}
 
 	var distanceSum float64
 
-	if isDirValid(Left, *head, mz.xBound, mz.yBound) {
+	if isDirValid(Left, head, mz.xBound, mz.yBound) {
 		weights[Left] = mz.Maze.At(head.y, head.x-1)
 		distanceSum += mz.Maze.At(head.y, head.x-1)
 	}
-	if isDirValid(Right, *head, mz.xBound, mz.yBound) {
+	if isDirValid(Right, head, mz.xBound, mz.yBound) {
 		weights[Right] = mz.Maze.At(head.y, head.x+1)
 		distanceSum += mz.Maze.At(head.y, head.x+1)
 	}
-	if isDirValid(Up, *head, mz.xBound, mz.yBound) {
+	if isDirValid(Up, head, mz.xBound, mz.yBound) {
 		weights[Up] = mz.Maze.At(head.y+1, head.x)
 		distanceSum += mz.Maze.At(head.y+1, head.x)
 	}
-	if isDirValid(Down, *head, mz.xBound, mz.yBound) {
+	if isDirValid(Down, head, mz.xBound, mz.yBound) {
 		weights[Down] = mz.Maze.At(head.y-1, head.x)
 		distanceSum += mz.Maze.At(head.y-1, head.x)
 	}
@@ -61,5 +61,5 @@ func stepRipple(mz *Maze) {
 		probs[i] = weights[i] / distanceSum
 	}
 
-	step(probs, *mz)
+	step(probs, *mz, &head)
 }
