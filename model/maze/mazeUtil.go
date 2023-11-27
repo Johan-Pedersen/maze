@@ -42,10 +42,14 @@ func PrintMaze(mz Maze) {
 	head := mz.paths[0]
 	fmt.Print("  ", strings.Repeat("_ ", cols), "\n")
 	for i := rows - 1; i >= 0; i-- {
-		fmt.Print(i, "| ")
+		if i < 10 {
+			fmt.Print(i, " | ")
+		} else {
+			fmt.Print(i, "| ")
+		}
 		for j := 0; j < cols; j++ {
 			if head.x == j && head.y == i {
-				fmt.Printf(" X  ")
+				fmt.Printf(" X   ")
 			} else {
 				cell := mz.Maze.At(i, j)
 				if cell == 0 {
@@ -57,10 +61,10 @@ func PrintMaze(mz Maze) {
 		}
 		fmt.Print("|\n")
 	}
-	fmt.Print("  ", strings.Repeat("- ", cols), "\n")
-	fmt.Print("   ")
-	for i := 0.0; i < float64(cols); i++ {
-		fmt.Printf("%.2f ", i)
+	fmt.Print("   ", strings.Repeat("- ", cols), "\n")
+	fmt.Print("     ")
+	for i := 0; i < cols; i++ {
+			fmt.Printf("%-5d", i)
 	}
 	fmt.Println()
 }
