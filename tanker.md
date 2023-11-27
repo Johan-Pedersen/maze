@@ -24,8 +24,9 @@
     - Det skal det nok vœre i hvert fald.
 - Når man stepper, så må en vald celle ikke vœre 0.
 - fix getValidDirs, den virker ikke rigtig når man først har taget et par steps, så kan man godt få outofbounds error og ikke at gå på nogen celler der har 0 virker heller ikke.
-
 - Programmet er meget langsomt. Det tager lang tid før man får en maze
+- Lav om i program strukturen. Så hele projektet bare er en labyrint generator.
+
 ## tekniske go ting
 
 - Hvordan kører man et go program

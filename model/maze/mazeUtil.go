@@ -64,7 +64,7 @@ func PrintMaze(mz Maze) {
 	fmt.Print("   ", strings.Repeat("- ", cols), "\n")
 	fmt.Print("     ")
 	for i := 0; i < cols; i++ {
-			fmt.Printf("%-5d", i)
+		fmt.Printf("%-5d", i)
 	}
 	fmt.Println()
 }

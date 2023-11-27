@@ -35,3 +35,25 @@
 - Hvad mener jeg overhovedet
   - Vinklen mellem cellevektoren og targetvektoren
   - 
+
+## Håndter flere heads
+
+- Vi har jo et array af heads
+- Men det er måske bedre bare at spawn en ny thread som også bare laver en path
+
+### thread per head
+
+- Man kan sige, hver gang vi laver et nyt target, så kan vi spawn 1 ny thread
+- Så skal vi have fjernet logikken med arrayet af heads
+- Ellers skal vi lave heads arrayet til shared memory. Men det kan jeg ikke rigtig se vœrdien i
+
+- selve maze'en skal vœre shared.
+  - Hvordan laver vi den shared når heads ikke er.
+  - Så skal man skile heads og maze af.
+
+- Hvordan skal Maze struct se ud
+  - Spørgsmålet er om target og paths skal vœre i denn
+  - Bruger vi Target field fra maze. Eller bliver den i forvejen bare givet med fra siden af?
+  - paths kan vi godt skilde fra hinanden
+  - Men hvis ikke vi har Target og paths, giver det så overhovedet mening at skulle have en bestemt bestemt Maze struct, da den egenligt bare er en mat.Dense og yBound, xBound, allerede ligger i det objekt.
+  - Og når det allerede er en pointer, så er den vel sådan set allerede shared et eller andet sted.

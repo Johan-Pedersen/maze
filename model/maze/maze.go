@@ -16,6 +16,14 @@ type coordinate struct {
 	x, y int
 }
 
+func (coord coordinate) String() string {
+	return fmt.Sprintf("X: %d, Y: %d", coord.x, coord.y)
+}
+
+func (coord coordinate) equals(other coordinate) bool {
+	return other.x == coord.x && other.y == coord.y
+}
+
 type Maze struct {
 	Maze *mat.Dense
 
@@ -76,12 +84,4 @@ func (dir stepDirection) String() string {
 	default:
 		return "Down"
 	}
-}
-
-func (coord coordinate) String() string {
-	return fmt.Sprintf("X: %d, Y: %d", coord.x, coord.y)
-}
-
-func (coord coordinate) equals(other coordinate) bool {
-	return other.x == coord.x && other.y == coord.y
 }
