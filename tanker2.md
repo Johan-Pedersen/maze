@@ -17,7 +17,6 @@
     - Fordi på det tidspunkt det sker, så er der nok andre heads der er blevet generetet. Så der sker ikke noget ved at lukke denne.
 
 
-
 ### Omdan indre produkt til grader
 
 - Der må jo vœre en sammenhœng, fordi ved indreprod = 0, så er de vinkel ret på hinanden.
@@ -61,6 +60,47 @@
 - Der er måske problemer i step, fordi der brugte jeg en pointer til head, men det er det ikke nu.
 
 - Head bliver nødt til at vœre en pointer
-
 - Hvordan sikre vi access til shared memory
   - Skal nok have noget semaphore.
+  - Maze vil give raceConditions, semaphore til at bestemme access.
+    - Sharedmemory bliver fixed ved Channels 
+
+- For at vi kan kalde det concurrently, så skal vi have samlet det i en metode
+- initial head variabel {0,0}
+- Indhold i concurrent metode
+  - head variabel
+  - genTargetZone
+  - StepVectorProduct()
+  - printMaze
+  - Genere ny thread efter x steps
+- 1 enkelt inital loop er nok
+
+- Vil fortsœtte til alle celler er fyldt.
+  - Så vi skal have en eller anden form for break.
+  - 
+
+
+- shared memory via channels
+  - Hvordan fungerer det
+    - Hvordan bliver shared memory locked når man bruger channles.
+    - Send og read fra channels er blocking by default
+    - Så send blokere så lœnge der ikke bliver lœst fra den channel og read blokere hvis den prøver at lœse fra en channel, men der ikke er noget data i.
+
+    - Hvad menes med blokere
+      - Det betyder vel bare at programmet ikke fortsœtter efter en read, hvis ikke der bliver lœst noget.
+    - Har ikke noget at gøre med read/write access til shared memory.
+
+  - Hvordan gør man
+    - Maze kan leve på channels
+    - Så før du lœser fra og skrive til maze, skal du have det fra en channel
+    - Dette tror jeg stadig kan lede til fejl, hvor en goroutine lœser fra en gammel
+      - Det tror jeg ikke. Fordi det kan godt vœre denne go rutine er gammel, men den får stadig den seneste aktuelle maze.
+    - Så read fra channel inden du laver read fra maze og write til channel efter du har skrevet til den.
+    - Det fungere jo ligesom en read write lock.
+
+
+- hvordan stopper man en gorutine
+  - https://yourbasic.org/golang/stop-goroutine/
+- Måden vi har gjort det på, så kører programmet bare rent sekventielt  fordi vi låser alt logikken så lœnge du ikke er den der har maze.
+  - Problemet er bare også at man kan ikke lœse chan, give access videre og så œndre i maze. Fordi så passer dit billede ikke med den faktiske verden.
+  - Så det giver ikke rigtig mening at bruge channels.
