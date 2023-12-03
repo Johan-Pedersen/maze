@@ -11,7 +11,7 @@ import (
 Generate x,y targetzone
 */
 
-func genTargetZone(r, c int) coordinate {
+func newTarget(r, c int) coordinate {
 	margin := 0.15
 
 	yLowerBound := int(margin * float64(r))
@@ -25,13 +25,6 @@ func genTargetZone(r, c int) coordinate {
 	x := rand.Intn(xUpperBound-xLowerBound) + xLowerBound
 
 	return coordinate{x, y}
-}
-
-/*
-Map between (x,y) and the 1 D representation for mat.NewDense data
-*/
-func coordToDataPos(x, y, colDims int) int {
-	return colDims*y + x
 }
 
 /*

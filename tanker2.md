@@ -115,3 +115,10 @@
     - Hvis vi skiller os af med Target også, så kan vi helt droppe Maze strukt. Og har så ikke Maze.Maze
   - Ulemper
     
+- plan for sekventiel
+  - Fjern maze strukt -> Der da ikke lœngere er nogen justification for at have den
+  - Lav et array af heads i createPath
+
+
+- Efter hver stepsPerRound antal steps, s∑ skal vi generere et nyt head og ligge til heads (med en eller anden ss)
+- Hver runde vœlger man et head og et target, tager $stepsPerRound antal steps mod det. genere et nt head. vœlge head og target og state forfra
