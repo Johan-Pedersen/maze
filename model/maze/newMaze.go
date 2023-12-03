@@ -42,13 +42,14 @@ func createPath(mz *Maze) {
 		// stepRipple(mz)
 		target := genTargetZone(rows, cols)
 
-		for j := 0; j < 5; j++ {
+		stepsPerRound := 5
+		for j := 0; j < stepsPerRound; j++ {
 			stepVectorProduct(mz, target, &head)
 			PrintMaze(*mz, head)
 
-				if head.equals(target) {
-					break
-				}
+			if head.equals(target) {
+				break
+			}
 		}
 
 	}

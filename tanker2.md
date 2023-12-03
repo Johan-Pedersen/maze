@@ -104,3 +104,14 @@
 - Måden vi har gjort det på, så kører programmet bare rent sekventielt  fordi vi låser alt logikken så lœnge du ikke er den der har maze.
   - Problemet er bare også at man kan ikke lœse chan, give access videre og så œndre i maze. Fordi så passer dit billede ikke med den faktiske verden.
   - Så det giver ikke rigtig mening at bruge channels.
+
+
+- Sekeventielt løsning
+  - Er det bedst at have et heads array 
+    - Det bliver vi jo nødt til når vi har flere heads
+- Skal det ligge i Maze strukturen eller parsere vi det med til funktionerne som vi har gjort her.
+  - Fordele
+    - Skal ikke til at lave det om
+    - Hvis vi skiller os af med Target også, så kan vi helt droppe Maze strukt. Og har så ikke Maze.Maze
+  - Ulemper
+    
