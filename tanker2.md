@@ -122,3 +122,49 @@
 
 - Efter hver stepsPerRound antal steps, s∑ skal vi generere et nyt head og ligge til heads (med en eller anden ss)
 - Hver runde vœlger man et head og et target, tager $stepsPerRound antal steps mod det. genere et nt head. vœlge head og target og state forfra
+
+- Vi skal ikke crash når der kommer en fejl.
+  - kan bare return i stedet
+
+- Current problem
+  - Det er ikke hele maze'en der bliver fyldt
+  - Det er oftes altid inde i midten og så bliver det nogen bare store klumper af "path"
+  - Det er bedre hvis det er mere de samme stier der bliver bygget ud 
+  - Fordi sådan får man bare en masse små stier uden nogen rigtig dybte
+  - Det behøver vel heller ikke rigtig vœre tilfœldigt når vi vœlger hvilken path der skal increase.
+  - Man kan godt gå på runde
+  - Hvor mnage paths skal vi så have
+    - 1 per runde bliver formange
+    - Man kunne godt isge at man har 5 paths, som så for lov til at sprede sig, og så tager man de nΩste 5. Og så gøre det x gange.
+    
+
+- Hver sub-path, skal kunne lave sin egen path
+  - Sådan som det er nu har vi bare en rœkke forgreninger der efter hver runde.
+  - Det er vel også ok
+
+  - Når vi laver et nyt head, så skal det vœre ud fra de heads vi har i forvejen. Det skal ikke altid vœre den seneste.
+    - Det virker vel sådan set fint nok, fordi vi vœlger et vilkårligt head hver runde.
+
+
+## Rethink forgreninger
+
+- Vi vil gerne have flere lœngere forgreninger der spreder sig ud til kanterne af maze.
+
+- Man kører på runder, hvor hver head i tager x steps og med en hvis ss adder et nyt head til heads som vil tages med nœste runde
+
+- Target selection
+  - Der skal også vœre paths langs kanten
+    - Dem derer svœre at nå er for alle y | x = max && alle x | y = max
+    - Det kan styres med target selection.
+  - Regler for target selection
+    - De skal prioritere spredning vœk fra midten
+
+  - Man kan give dem områder, så et target holder sig inden for et given område
+  - Gør så de ikke kryder på tvœrs hele tiden og dermed samler sig i midten.
+  - Ved at dele op på midten skaber det bare 2 nye centrumer, hvor paths vil samle sig.
+  - Det kan måske betale sig at lav et framework til at sœtte zoner op. Så man kan prøve nogen forskellige patterns
+  - Og så skal man måske have nogen targets som gør som normalt til at forbinde zonerne.
+
+
+- skal have en måde at steppe i gennem koden og se hvad der sker
+  - Hvis man kunne se terminal output fra debuggeren, så vil det kunne bruges.

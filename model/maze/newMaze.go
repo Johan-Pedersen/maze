@@ -1,7 +1,6 @@
 package maze
 
 import (
-	"log"
 	"math/rand"
 
 	"gonum.org/v1/gonum/mat"
@@ -30,33 +29,35 @@ func createPath(mz *Maze) {
 
 	heads := make([]*coordinate, 0, 10)
 	heads = append(heads, &coordinate{0, 0})
-
-	var curHead *coordinate
-	for i := 0; i < 10; i++ {
+	var tmpHeads []*coordinate
+	copy(tmpHeads, heads)
+	for i := 0; i < 7; i++ {
 
 		println("******************", i)
+		for k := 0; k < len(heads); k++ {
 
-		rows, cols := mz.Maze.Dims()
-		// stepRipple(mz)
-		target := newTarget(rows, cols)
+			rows, cols := mz.Maze.Dims()
+			// stepRipple(mz)
+			target := newTarget(rows, cols)
 
-		curHead = selectHead(heads)
+			stepsPerRound := 4
+			for j := 0; j < stepsPerRound; j++ {
+				stepVectorProduct(mz, target, heads[k])
+				PrintMaze(*mz, *heads[k])
 
-		if curHead == nil {
-			log.Fatal("curHead = nil")
-		}
-		stepsPerRound := 5
-		for j := 0; j < stepsPerRound; j++ {
-			stepVectorProduct(mz, target, curHead)
-			PrintMaze(*mz, *curHead)
+				if heads[k].equals(target) {
+					break
+				}
+				r := rand.Intn(stepsPerRound)
+				if float64(r) <= 1.0/3*float64(stepsPerRound) {
+					tmpHead := *heads[k]
+					tmpHeads = append(tmpHeads, &tmpHead)
+				}
 
-			if curHead.equals(target) {
-				break
 			}
 		}
-		tmp_head := *curHead
-		heads = append(heads, &tmp_head)
 
+		heads = tmpHeads
 	}
 }
 
@@ -67,7 +68,6 @@ func selectHead(heads []*coordinate) *coordinate {
 	summedProbs[0] = prob
 	head := rand.Float64()
 
-	// Det her ville man kunne gøre meget smartere i scala
 	for i := 1; i < len(summedProbs); i++ {
 		summedProbs[i] = summedProbs[i-1] + prob
 	}
@@ -77,6 +77,5 @@ func selectHead(heads []*coordinate) *coordinate {
 			return heads[i]
 		}
 	}
-	// Should be an error
 	return nil
 }

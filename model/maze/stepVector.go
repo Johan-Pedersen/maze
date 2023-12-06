@@ -2,7 +2,6 @@ package maze
 
 import (
 	"fmt"
-	"log"
 	"math"
 )
 
@@ -78,7 +77,8 @@ func stepVectorProduct(mz *Maze, target coordinate, head *coordinate) {
 	}
 
 	if productSum == 0 {
-		log.Fatal("productSum = 0")
+		// log.Fatal("productSum = 0")
+		return
 	}
 
 	// find procent
