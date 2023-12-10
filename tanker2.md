@@ -168,3 +168,52 @@
 
 - skal have en måde at steppe i gennem koden og se hvad der sker
   - Hvis man kunne se terminal output fra debuggeren, så vil det kunne bruges.
+
+
+- Man vil sætte targets væk fra de andre paths og fordi vi har arbejder i en matrice så kan man lave nogen operationer der giver et billede af hvordan matricen ser ud og så kan man lave det baseret op det
+- Meget ligesom vi har set i ml
+- Når man vælger et target, så løber man matricen i gennem og laver en gradient, sådan at hvis du er ved siden af en path, trækkes x fra ( afhængig af hvor tæt du er på en path) (kan man sikkert også lave et filter på)
+Når man så har den, så kan man scanne den med et filter for at finde de steder længst væk fra en path, som man så kan sætte som target
+
+- Er det projectioner vi skal bruge til at "omdanne" matricen
+- spørgsmålet er om det kan betale sig at lave alle de ekstra operationer
+  - Vi bliver jo nødt til at lave gradieringen
+  - Men behøver vi at køre filteret over
+    - Nok ikke. Fordi den gradiering er jo allerede en form for filter
+    - Når man så skal finde et target område, så går man jo bare ud af hvor cellerne bliver større og større.
+
+## Kernels
+
+- Hvilke kernels skal vi bruge
+- Vi har avg kernes og max-kernels
+
+- Det er måske fint at bruge avg kernels og når kernelen ikke er så stor så kan det give en fin ide
+om der er en path eller ej.
+
+- Ellers skulle man bruge en kernel der ser linjer
+- Det er ikke effektivt fordi det er ikke nødvendigvis linjer
+
+- avg-kernel er den mest indlysende at bruge
+  - Så passer det også nemt med der er 0 i en path.
+  - Og så vœgter man de entries tœttes på 1 højest.
+
+- Hvordan bruger man den til at vœlge et target
+  - Man kan bruge det til at lave en target vector
+    - Man skal stadig have nogen koordinator
+    - Og man kan ikke rigtig omdanne tilbage igen
+    - Det ville i hvertfald ikke give mening at give mening nu.
+  - Man kan lave en estimering baseret på hvor meget matricen bliver scalet ned. og så gang med den faktor 
+
+
+
+- Hvordan vil man lave en kernel
+  - Vi vil lave en avg kernel
+  - Hvis det bare er en avg kernel, så summere man bare alle entries og dividere med antallet
+  - Så man behøver ikke definere en decideret kernel matrice som man kørere over
+  - men bare tage den lidt i etaper
+  - Det er vel bare et forloop, hvor man summere man dem alle sammen, avg, og så smid det ind i en result matrice
+
+  - Hvor meget bliver matricen skåret ned.
+    -
+  - Du x og y bliver reduceret med hvor stor kernel matricen er
+

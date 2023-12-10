@@ -1,6 +1,7 @@
 package maze
 
 import (
+	"fmt"
 	"math/rand"
 
 	"gonum.org/v1/gonum/mat"
@@ -38,6 +39,11 @@ func createPath(mz *Maze) {
 
 			rows, cols := mz.Maze.Dims()
 			// stepRipple(mz)
+
+			convMat := findAvgConvMatrix(mz.Maze)
+			fmt.Printf("Matrix:\n")
+			matFormatted := mat.Formatted(convMat, mat.Prefix(""), mat.Squeeze())
+			fmt.Printf("%.2f\n", matFormatted)
 			target := newTarget(rows, cols)
 
 			stepsPerRound := 4
