@@ -17,7 +17,7 @@ type coordinate struct {
 }
 
 func (coord coordinate) String() string {
-	return fmt.Sprintf("X: %d, Y: %d", coord.x, coord.y)
+	return fmt.Sprintf("(X: %d, Y: %d)", coord.x, coord.y)
 }
 
 func (coord coordinate) equals(other coordinate) bool {
@@ -57,7 +57,8 @@ Create normalized vector, with ||vec||_2 =1
 */
 func newNormVector(head, target coordinate) vector {
 	vec := newVector(head, target)
-	return vector{(vec.x) / norm(vec), vec.y / norm(vec)}
+	norm := norm(vec)
+	return vector{(vec.x) / norm, vec.y / norm}
 }
 
 type stepDirection int

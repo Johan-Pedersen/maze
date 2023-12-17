@@ -217,3 +217,67 @@ om der er en path eller ej.
     -
   - Du x og y bliver reduceret med hvor stor kernel matricen er
 
+## Hvordan bruger vi convMat til at generere et target
+
+- Kan bruge ConvMat til at definere hvor lœnge vi fortsœtter
+  - Så vi fortsœtter så lœnge den gennemsnitslige vœrdi i convMat er > x
+
+- Kan man bruge ideen fra bachelor projekt til at vœlge en non-zero entry
+
+- Kan notere position og vœrdi for hver enkelt entry i et array
+
+- Hvad vil vi have
+  - Vi vil ikke sœtte et target, hvor der allerede er paths
+  - DownScale = 2 vil gøre billedet mere prœcist, i forhold til at have paths tœt på hinanden
+
+
+- Der skal også vœre tid til at head faktisk kan nå target
+  - Hvis man hver gang sœtter target på den anden side af map. Så kan target jo aldrig nå der over
+  - Tror hver head skal have en side/område så de man ikke skifter side hver gang
+  - Man kan sige at distance til Target cellen også spiller en rolle for ss for at den bliver valgt
+  - Kan man bruge vectorStep metoden/samme ide fordi ripple var jo lidt samme ide mm distance og det fungerede ikke rigtig
+  - Men når man har alle koordinaterne så kan man sortere dem og så kun tage de celler der er tœttest på 
+
+- Vi skal sortere baseret på distance sog "farve"
+- Compare metode
+- distance vs farve
+  - kan vœre en kombination
+    - svœr at lave
+    - Man skal også have en måde at sortere når der er lighed
+  - Kan godt: Først compare farve, Hvis de så enst -> compare distance
+  - Skal bare vœre lidt en kombination 
+    - Eller så siger man bare sorter efter distance og hvis der er lighed, sorter efter farve
+    - Man kommer bare ud i at få alle de røde som ligger tœttes på og det er man ikke interesseret i
+    - Kan heller ikke omvendt, fordi så får man alle de hvide der er langt vœk
+    - Kan sige man tager dem med < x distance, sortere dem efter farve.
+    - Så er man sikker på man ikke kommer langt vœk men farven er stadig vigtigst
+  - 
+- Hvordan måler vi distance
+  - Kan danne en vektor og finde dist af den
+    - Måske den mest umiddelbare løsning
+    - Krœver så også lidt regne kraft. Men det er måske Ok
+  - - 
+  - vœlg en target coord, lav en vektor find norm af vektor
+  - 
+- Hvis vi skulle undgå at gemme en tuple, kunne det måske også vœre smart bestemme en grœnse, så vi kun adder hvis de er under grœnsen.
+
+- svœrt at dynamisk sœtte grœnse baseret på maze størrelse
+- Hvis ikke der findes nogen inden for den grœnse
+  - Men det betyder så at der ikke findes nogen entries inden for rœkkevide, så man burde nok bare terminere.
+
+- Ved at have et bound, er at man heller ikke behøver at sortere. Man vœlger bare en af dem der er tœttest på 
+
+- Så skal listen sorteres baseret på farve.
+
+- Men vil man have dem hvis de er under x farve
+
+- find value for searchDistBound og farve
+
+
+## Consistency
+
+- Hvornår får vi targetDir = (NaN NaN)
+  - Når target sœttes til 0-celle.
+    - Der er et eksempel hvor target sœttes til en 0 celle og der sker ikke noget 
+  - Kan vœre når head når target
+    - Vi havde også noget med sådan en fejl før.

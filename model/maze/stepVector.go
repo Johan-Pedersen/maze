@@ -20,6 +20,7 @@ func stepVectorProduct(mz *Maze, target coordinate, head *coordinate) {
 
 	fmt.Println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 	println("target: ", "(", target.x, target.y, ")")
+	fmt.Println("Head: ", *head)
 
 	targetDir := newNormVector(*head, target)
 
@@ -79,6 +80,7 @@ func stepVectorProduct(mz *Maze, target coordinate, head *coordinate) {
 	if productSum == 0 {
 		// log.Fatal("productSum = 0")
 		return
+		// return errors.New("product Sum = 0")
 	}
 
 	// find procent
@@ -93,4 +95,6 @@ func stepVectorProduct(mz *Maze, target coordinate, head *coordinate) {
 
 	// lav step mod target
 	// stepToTarget(&head, maze.TargetCoordinate{tmpTargetx, tmpTargety})
+
+	// return nil
 }

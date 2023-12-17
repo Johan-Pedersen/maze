@@ -49,7 +49,6 @@ func sample(probs []float64) (stepDirection, error) {
 			return stepDirection(i), nil
 		}
 	}
-	// Should be an error
 	return stepDirection(0), errors.New("could not sample directions. \nProbs: " + fmt.Sprintf("%v", probs) +
 		"\nstep: " + strconv.FormatFloat(step, 'f', -1, 64))
 }

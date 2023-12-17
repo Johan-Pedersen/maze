@@ -17,7 +17,7 @@
 
 ## tekniske go ting
 
-- Hvordan kører man et go program
+- Hvordan kører n et go program
   - Det skal først compiles før man kan kører executable programmet
   - Hvilken path er det man skal bruge når man bruger install commandoen
   - Hvad gør "go install"

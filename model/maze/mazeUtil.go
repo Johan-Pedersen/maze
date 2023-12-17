@@ -3,29 +3,8 @@ package maze
 import (
 	"fmt"
 	"math"
-	"math/rand"
 	"strings"
 )
-
-/*
-Generate x,y targetzone
-*/
-
-func newTarget(r, c int) coordinate {
-	margin := 0.15
-
-	yLowerBound := int(margin * float64(r))
-	xLowerBound := int(margin * float64(c))
-
-	yUpperBound := int((1 - margin) * float64(r))
-	xUpperBound := int((1 - margin) * float64(c))
-
-	// rn := rand.New(rand.NewSource(2))
-	y := rand.Intn(yUpperBound-yLowerBound) + yLowerBound
-	x := rand.Intn(xUpperBound-xLowerBound) + xLowerBound
-
-	return coordinate{x, y}
-}
 
 /*
 Print maze in a nice way
