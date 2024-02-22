@@ -81,9 +81,7 @@ func getValidDirs(mz *Maze, head coordinate) []stepDirection {
 
 /*
 Checks if the step direction is valid from given path coordinate
-
 */
-
 func isDirValid(dir stepDirection, head coordinate,
 	xAxisBound, yAxisBound int,
 ) bool {
