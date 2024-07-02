@@ -40,7 +40,7 @@ func createPath(mz *Maze) {
 		for k := 0; k < len(heads); k++ {
 
 			convMat := findAvgConvMatrix(mz.Maze)
-			fmt.Printf("Matrix:\n")
+			fmt.Printf("Convolution Matrix:\n")
 			matFormatted := mat.Formatted(convMat, mat.Prefix(""), mat.Squeeze())
 			fmt.Printf("%.2f\n", matFormatted)
 
