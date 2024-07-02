@@ -1,2 +1,7 @@
-# maze
-maze generator and solver
+# Maze
+
+Auto generateing mazes
+
+## Images
+
+![Maze](./docs/maze.png) 
